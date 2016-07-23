@@ -7,7 +7,7 @@
 
 #include "Model.hpp"
 #include "Texture.hpp"
-#include "VAO.hpp"
+#include <glcxx/src/vao.hpp>
 
 /// @brief dummy terrain is bunch of rectangles covering area under skydome
 class CTerrain : public IRenderableModel
@@ -16,7 +16,7 @@ class CTerrain : public IRenderableModel
       tTexturePtr mTexture;
 
       /// @brief vao
-      tIndexedVAO<ct::named_type<cts("aPos"), glm::vec3>,
+      indexed_vao<ct::named_type<cts("aPos"), glm::vec3>,
                   ct::named_type<cts("aUV"),  glm::vec2>> mVAO;
 
       /// @brief terrain center

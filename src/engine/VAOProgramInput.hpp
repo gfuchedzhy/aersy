@@ -5,7 +5,7 @@
 #ifndef ENGINE_VAOPROGRAMINPUT_HPP
 #define ENGINE_VAOPROGRAMINPUT_HPP
 
-#include "VAO.hpp"
+#include <glcxx/src/vao.hpp>
 
 /// @brief named attribute class, used for program declarations
 template<typename TName, typename TAttribTraits>
@@ -48,7 +48,7 @@ class TVertexArrayObjectProgramInput<std::tuple<TNamedAttribs...>>
 
       /// @brief draw using index buffer from vao
       template<typename...TName, typename...TData>
-      void drawElements(const tIndexedVAO<ct::named_type<TName, TData>...>& vao) const
+      void drawElements(const indexed_vao<ct::named_type<TName, TData>...>& vao) const
       {
          using tVAOTuple = std::tuple<ct::named_type<TName, TData>...>;
          using tRequiredVAOTuple =  std::tuple<ct::named_type<typename TNamedAttribs::tName,
@@ -61,16 +61,16 @@ class TVertexArrayObjectProgramInput<std::tuple<TNamedAttribs...>>
          {
             Log::msg("attaching vao to a program id ", mProgramID);
             vao.mProgramID = mProgramID;
-            vao.template bindBuffer<cts("indices")>();
-            swallow(vao.template bindBuffer<typename TNamedAttribs::tName>() &&
+            vao.template bind_buffer<cts("indices")>();
+            swallow(vao.template bind_buffer<typename TNamedAttribs::tName>() &&
                     (TNamedAttribs::tAttribTraits::attach(mLocations[ct::tuple_find<std::tuple<typename TNamedAttribs::tName...>, typename TNamedAttribs::tName>::value]), true));
          }
-         vao.drawElements();
+         vao.draw_elements();
       }
 
       /// @brief draw arrays
       template<typename...TName, typename...TData>
-      void drawArrays(const tVAO<ct::named_type<TName, TData>...>& vao, GLsizei size, GLenum mode) const
+      void drawArrays(const vao<ct::named_type<TName, TData>...>& vao, GLsizei size, GLenum mode) const
       {
          using tVAOTuple = std::tuple<ct::named_type<TName, TData>...>;
          using tRequiredVAOTuple =  std::tuple<ct::named_type<typename TNamedAttribs::tName,
@@ -83,7 +83,7 @@ class TVertexArrayObjectProgramInput<std::tuple<TNamedAttribs...>>
          {
             Log::msg("attaching vao to a program id ", mProgramID);
             vao.mProgramID = mProgramID;
-            swallow(vao.template bindBuffer<typename TNamedAttribs::tName>() &&
+            swallow(vao.template bind_buffer<typename TNamedAttribs::tName>() &&
                     (TNamedAttribs::tAttribTraits::attach(mLocations[ct::tuple_find<std::tuple<typename TNamedAttribs::tName...>, typename TNamedAttribs::tName>::value]), true));
          }
          gl(glDrawArrays, mode, 0, size);

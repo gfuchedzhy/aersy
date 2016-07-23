@@ -8,7 +8,7 @@
 #include "Renderable.hpp"
 #include "Billboard.hpp"
 #include "Particle.hpp"
-#include "VAO.hpp"
+#include <glcxx/src/vao.hpp>
 
 /// @brief jet flame with trail
 class CJetFlame : public CTexturedBillboard, public TParticleSystem<SParticle, CJetFlame>
@@ -17,9 +17,9 @@ class CJetFlame : public CTexturedBillboard, public TParticleSystem<SParticle, C
       using tParticleSystem = TParticleSystem<SParticle, CJetFlame>;
 
       /// @brief vao
-      tVAO<ct::named_type<cts("aPos"),   glm::vec3>,
-           ct::named_type<cts("aSpeed"), glm::vec4>,
-           ct::named_type<cts("aTime"),  glm::vec2>> mVAO;
+      vao<ct::named_type<cts("aPos"),   glm::vec3>,
+          ct::named_type<cts("aSpeed"), glm::vec4>,
+          ct::named_type<cts("aTime"),  glm::vec2>> mVAO;
 
       /// @brief atlas size
       glm::ivec2 mAtlasSize;

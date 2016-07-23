@@ -7,7 +7,7 @@
 
 #include "Model.hpp"
 #include "Billboard.hpp"
-#include "VAO.hpp"
+#include <glcxx/src/vao.hpp>
 
 /// @brief sky consists of 5 textured rects and some clouds todo
 class CSky : public IRenderableModel
@@ -19,7 +19,7 @@ class CSky : public IRenderableModel
       tTexturePtr mTexture;
 
       /// @brief vao
-      tIndexedVAO<ct::named_type<cts("aPos"), glm::vec3>,
+      indexed_vao<ct::named_type<cts("aPos"), glm::vec3>,
                   ct::named_type<cts("aUV"),  glm::vec2>> mVAO;
 
    public:
