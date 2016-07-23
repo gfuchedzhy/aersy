@@ -6,6 +6,7 @@
 #include "Texture.hpp"
 
 CTexture::CTexture(const std::string& filename)
+   : texture(GL_TEXTURE_2D)
 {
    Log::msg("loading texture from ", filename);
    gli::texture texture = gli::load(filename);
@@ -13,8 +14,7 @@ CTexture::CTexture(const std::string& filename)
       throw std::runtime_error{"failed to load texture"};
 
    gli::gl GL;
-   mTarget = GL.translate(texture.target());
-   bool valid = (GL_TEXTURE_2D == mTarget);
+   bool valid = (GL.translate(texture.target()) == GL_TEXTURE_2D);
    valid = (1 == texture.layers()) && valid;
    valid = (1 == texture.faces()) && valid;
    if (!valid)
@@ -24,7 +24,6 @@ CTexture::CTexture(const std::string& filename)
    const gli::gl::format format = GL.translate(texture.format());
    const glm::tvec3<GLsizei> dimensions(texture.dimensions());
 
-   gl(glGenTextures, 1, &mID);
    bind();
    gl(glTexParameteri, mTarget, GL_TEXTURE_BASE_LEVEL, 0);
    gl(glTexParameteri, mTarget, GL_TEXTURE_MAX_LEVEL, levels);
@@ -51,29 +50,5 @@ CTexture::CTexture(const std::string& filename)
             mTarget, l, 0, 0, subImageDimensions.x, subImageDimensions.y,
             format.External, format.Type, texture.data(0, 0, l));
    }
-   unBind();
-}
-
-void CTextureProgramInputImpl::set(const tTexturePtr& value)
-{
-   if (mTexture != value)
-   {
-      if (mTexture)
-      {
-         gl(glActiveTexture, GL_TEXTURE0 + mSamplerID);
-         mTexture->unBind();
-      }
-      mTexture = value;
-      attach();
-   }
-}
-
-void CTextureProgramInputImpl::attach() const
-{
-   if (mTexture)
-   {
-      gl(glActiveTexture, GL_TEXTURE0 + mSamplerID);
-      mTexture->bind();
-      glsl::attach_uniform(mLocation, mSamplerID);
-   }
+   unbind();
 }

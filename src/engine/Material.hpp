@@ -26,10 +26,10 @@ struct SMaterial
       float mShininess = 1.f;
 
       /// @brief diffuse texture
-      tTexturePtr mDiffuseMap;
+      texture_ptr mDiffuseMap;
 
       /// @brief normal map texture
-      tTexturePtr mNormalMap;
+      texture_ptr mNormalMap;
 
       /// @brief constructor
       SMaterial(const aiMaterial& material, const std::string& textureDirectory);

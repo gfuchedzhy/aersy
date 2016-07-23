@@ -6,8 +6,8 @@
 #define ENGINE_PROGRAMS_HPP
 
 #include "Program.hpp"
-#include "Texture.hpp"
 #include <glcxx/src/uniform_input.hpp>
+#include <glcxx/src/texture_input.hpp>
 
 template<typename TName>
 const char* programSrc();
@@ -24,7 +24,7 @@ auto progInputDef(cts("regular-col")) -> ct::tuple_append<inp_by_name("regular")
 
 auto progInputDef(cts("regular-tex")) -> ct::tuple_append<inp_by_name("regular"),
    attrib_input<cts("aUV"), attrib<glm::tvec2>>,
-   TTextureProgramInput<cts("uTexture")>>;
+   texture_input<cts("uTexture")>>;
 
 auto progInputDef(cts("shaded")) -> std::tuple<
    attrib_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
@@ -43,11 +43,11 @@ auto progInputDef(cts("shaded-col")) -> ct::tuple_append<inp_by_name("shaded"),
 
 auto progInputDef(cts("shaded-tex")) -> ct::tuple_append<inp_by_name("shaded"),
    attrib_input<cts("aUV"), attrib<glm::tvec2>>,
-   TTextureProgramInput<cts("uTexture")>>;
+   texture_input<cts("uTexture")>>;
 
 auto progInputDef(cts("shaded-tex-nmap")) -> ct::tuple_append<inp_by_name("shaded-tex"),
    attrib_input<cts("aTan"), attrib<glm::tvec3>>,
-   TTextureProgramInput<cts("uNormalMap"), 1>>;
+   texture_input<cts("uNormalMap"), 1>>;
 
 auto progInputDef(cts("billboard")) -> std::tuple<
    attrib_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
@@ -59,7 +59,7 @@ auto progInputDef(cts("billboard")) -> std::tuple<
 
 auto progInputDef(cts("billboard-tex")) -> ct::tuple_append<inp_by_name("billboard"),
    attrib_input<cts("aUV"), attrib<glm::tvec2>>,
-   TTextureProgramInput<cts("uTexture")>>;
+   texture_input<cts("uTexture")>>;
 
 auto progInputDef(cts("billboard-tex-sprite")) -> ct::tuple_append<inp_by_name("billboard-tex"),
    uniform_input<cts("uAtlasSize"), uniform<glm::tvec2, int>>,
@@ -75,7 +75,7 @@ auto progInputDef(cts("particlesys")) -> std::tuple<
    uniform_input<cts("uPerspectiveScale"), uniform<glm::tvec2>, tag::geometry>>;
 
 auto progInputDef(cts("particlesys-tex")) -> ct::tuple_append<inp_by_name("particlesys"),
-   TTextureProgramInput<cts("uTexture")>>;
+   texture_input<cts("uTexture")>>;
 
 auto progInputDef(cts("particlesys-tex-sprite")) -> ct::tuple_append<inp_by_name("particlesys-tex"),
    // aTime.x is age of particle, aTime.y is age of death

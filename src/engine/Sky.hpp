@@ -16,7 +16,7 @@ class CSky : public IRenderableModel
       std::vector<CTexturedBillboard> mClouds;
 
       /// @brief dome texture
-      tTexturePtr mTexture;
+      texture_ptr mTexture;
 
       /// @brief vao
       indexed_vao<ct::named_type<cts("aPos"), glm::vec3>,
@@ -24,7 +24,7 @@ class CSky : public IRenderableModel
 
    public:
       /// @brief constructor
-      CSky(tTexturePtr tex, float horizonDistance);
+      CSky(texture_ptr tex, float horizonDistance);
 
       /// @brief draw
       void draw(const CContext& context) const override;

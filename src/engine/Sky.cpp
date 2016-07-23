@@ -6,12 +6,12 @@
 #include "Sphere.hpp"
 #include "Context.hpp"
 
-CSky::CSky(tTexturePtr tex, float horizonDistance)
+CSky::CSky(texture_ptr tex, float horizonDistance)
    : mTexture(std::move(tex))
 {
    scale({horizonDistance, horizonDistance, horizonDistance});
 
-   std::array<tTexturePtr, 5> cloudTextures;
+   std::array<texture_ptr, 5> cloudTextures;
    for (int i = 0; i < cloudTextures.size(); ++i)
       cloudTextures[i] = make_texture(std::string("res/cloud") + std::to_string(i+1) + ".dds");
 

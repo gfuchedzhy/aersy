@@ -7,7 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
 
-CTerrain::CTerrain(tTexturePtr tex)
+CTerrain::CTerrain(texture_ptr tex)
    : mTexture(std::move(tex))
 {
    const glm::vec3 pos[] = {
