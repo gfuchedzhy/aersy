@@ -48,7 +48,7 @@ void CTexturedBillboard::draw(const CContext& context) const
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
    p.set<cts("uTexture")>(mTexture);
-   p.drawElements(vao);
+   p.draw_elements(vao);
 }
 
 void CAnimatedBillboard::draw(const CContext& context) const
@@ -60,7 +60,7 @@ void CAnimatedBillboard::draw(const CContext& context) const
    p.set<cts("uAtlasSize")>(mAtlasSize);
    p.set<cts("uAtlasPos")>(mAtlasPos);
    p.set<cts("uTexture")>(mTexture);
-   p.drawElements(vao);
+   p.draw_elements(vao);
 }
 
 void CHealthBar::draw(const CContext& context) const
@@ -72,5 +72,5 @@ void CHealthBar::draw(const CContext& context) const
    p.set<cts("uValue")>(mValue);
 
    glcxx::disable_depth_test_guard lock;
-   p.drawElements(vao);
+   p.draw_elements(vao);
 }

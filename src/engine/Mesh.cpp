@@ -56,7 +56,7 @@ void CMesh::draw(const CContext& context) const
       p.set<cts("uSpecular")>(mMaterial->mSpecular);
       p.set<cts("uShininess")>(mMaterial->mShininess);
       p.set<cts("uNormalMap")>(mMaterial->mNormalMap);
-      p.drawElements(mVAO);
+      p.draw_elements(mVAO);
    }
    else
    {
@@ -66,6 +66,6 @@ void CMesh::draw(const CContext& context) const
       p.set<cts("uDiffuse")>(mMaterial->mDiffuse);
       p.set<cts("uSpecular")>(mMaterial->mSpecular);
       p.set<cts("uShininess")>(mMaterial->mShininess);
-      p.drawElements(mVAO);
+      p.draw_elements(mVAO);
    }
 }

@@ -48,7 +48,7 @@ void CSky::draw(const CContext& context) const
       auto& p = context.getProgram<cts("regular-tex")>();
       p.set<cts("uModel")>(model());
       p.set<cts("uTexture")>(mTexture);
-      p.drawElements(mVAO);
+      p.draw_elements(mVAO);
    }
 
    glcxx::disable_depth_mask_guard dmLock;

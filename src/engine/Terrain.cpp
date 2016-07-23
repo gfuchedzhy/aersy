@@ -43,6 +43,6 @@ void CTerrain::draw(const CContext& context) const
       for (int shifty = min.y; shifty <= max.y; ++shifty)
       {
          p.set<cts("uModel")>(glm::translate(glm::mat4{}, glm::vec3{size*shiftx, size*shifty, 0}) * m);
-         p.drawElements(mVAO);
+         p.draw_elements(mVAO);
       }
 }

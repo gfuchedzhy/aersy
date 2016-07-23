@@ -6,7 +6,7 @@
 #define ENGINE_PROGRAM_HPP
 
 #include "Shader.hpp"
-#include "VAOProgramInput.hpp"
+#include <glcxx/src/vao_input.hpp>
 #include <tuple>
 
 /// @brief resource holder for opengl program object
@@ -161,7 +161,7 @@ namespace detail
    {
          /// @brief check if type is instantiation of TNamedAttrib template
          template<typename T> struct instantiation_of_named_attrib
-            : ct::instantiation_of<T, TNamedAttrib> {};
+            : ct::instantiation_of<T, attrib_input> {};
 
          /// @brief all TNamedAttribs
          using tVAOInputs = ct::tuple_filter<TInputTuple, instantiation_of_named_attrib>;
@@ -179,7 +179,7 @@ namespace detail
          /// @brief resulting program inputs
          using resultingInputs = typename std::conditional<0 == std::tuple_size<tVAOInputs>::value, //empty?
                                                            tRestOfInputsNoTags,
-                                                           ct::tuple_append<tRestOfInputsNoTags, TVertexArrayObjectProgramInput<tVAOInputs>>>::type;
+                                                           ct::tuple_append<tRestOfInputsNoTags, vao_input<tVAOInputs>>>::type;
    };
 }
 
