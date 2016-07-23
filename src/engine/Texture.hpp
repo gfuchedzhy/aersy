@@ -5,7 +5,7 @@
 #ifndef ENGINE_TEXTURE_HPP
 #define ENGINE_TEXTURE_HPP
 
-#include "GLSLInputVariable.hpp"
+#include <glcxx/src/input_var.hpp>
 #include <string>
 #include <memory>
 
@@ -100,7 +100,7 @@ struct TTextureProgramInput : public CTextureProgramInputImpl
 
       /// @brief constructor
       TTextureProgramInput(const GLuint program)
-         : CTextureProgramInputImpl(glsl::getUniformLocation(program, TName::chars), samplerID)
+         : CTextureProgramInputImpl(glsl::get_uniform_loc(program, TName::chars), samplerID)
       {}
 
       /// @brief named set method

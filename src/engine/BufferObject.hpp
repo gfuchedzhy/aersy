@@ -5,7 +5,7 @@
 #ifndef ENGINE_BUFFEROBJECT_HPP
 #define ENGINE_BUFFEROBJECT_HPP
 
-#include "GLSLInputVariable.hpp"
+#include <glcxx/src/input_var.hpp>
 #include <memory>
 
 /// @brief base class for all types of buffer objects
@@ -119,9 +119,9 @@ class CIndexBuffer : public CBufferObjectBase
                  (gl(glBindVertexArray, 0), GL_ELEMENT_ARRAY_BUFFER))
          , mSize(size)
          , mMode(mode)
-         , mType(glsl::TTypeID<T>::id)
+         , mType(glsl::type_id<T>::value)
       {
-         constexpr GLenum id = glsl::TTypeID<T>::id;
+         constexpr GLenum id = glsl::type_id<T>::value;
          static_assert(GL_UNSIGNED_BYTE == id || GL_UNSIGNED_SHORT == id || GL_UNSIGNED_INT == id, "unsupported index type provided");
       }
 
@@ -129,7 +129,7 @@ class CIndexBuffer : public CBufferObjectBase
       template<typename T>
       void upload(const T* data, size_t size, GLenum mode, GLenum usage = 0)
       {
-         constexpr GLenum id = glsl::TTypeID<T>::id;
+         constexpr GLenum id = glsl::type_id<T>::value;
          static_assert(GL_UNSIGNED_BYTE == id || GL_UNSIGNED_SHORT == id || GL_UNSIGNED_INT == id, "unsupported index type provided");
          // before binding index buffer for upload vao should be unbound to
          // preserve vao's internal state, note that this in not the case for

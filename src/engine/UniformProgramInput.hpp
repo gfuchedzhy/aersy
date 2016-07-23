@@ -5,7 +5,7 @@
 #ifndef ENGINE_UNIFORMPROGRAMINPUT_HPP
 #define ENGINE_UNIFORMPROGRAMINPUT_HPP
 
-#include "GLSLInputVariable.hpp"
+#include <glcxx/src/input_var.hpp>
 
 /// @brief base implementation for TUniformProgramInput
 template<typename TUniformTraits>
@@ -15,7 +15,7 @@ class TUniformProgramInputImpl
       GLint mLocation;
 
       /// @brief holds actual uniform
-      typename TUniformTraits::tData mUniformData;
+      typename TUniformTraits::data mUniformData;
 
    public:
       /// @brief constructor
@@ -24,12 +24,12 @@ class TUniformProgramInputImpl
       {}
 
       /// @brief set uniform as program input
-      void set(const typename TUniformTraits::tData& value)
+      void set(const typename TUniformTraits::data& value)
       {
          if (mUniformData != value)
          {
             mUniformData = value;
-            glsl::attachUniform(mLocation, glsl::TConverter<typename TUniformTraits::tGLSLData>::convert(mUniformData));
+            glsl::attach_uniform(mLocation, glsl::converter<typename TUniformTraits::glsl_data>::convert(mUniformData));
          }
       }
 
@@ -51,17 +51,17 @@ class TUniformProgramInput : public TUniformProgramInputImpl<TUniformTraits>
       using tDeclTag = DeclTag;
 
       /// @brief ctstring containing glsl declaration of variable
-      using tDeclaration = typename TUniformTraits::template tDeclaration<TName>;
+      using tDeclaration = typename TUniformTraits::template declaration<TName>;
 
       /// @brief constructor
       TUniformProgramInput(const GLuint program)
-         : tBase(glsl::getUniformLocation(program, TName::chars))
+         : tBase(glsl::get_uniform_loc(program, TName::chars))
       {}
 
       /// @brief named set method
       template<typename TInputName>
       typename std::enable_if<std::is_same<TInputName, TName>::value>::type
-      set(const typename TUniformTraits::tData& value)
+      set(const typename TUniformTraits::data& value)
       {
          tBase::set(value);
       }

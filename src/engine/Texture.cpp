@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Grygoriy Fuchedzhy <grygoriy.fuchedzhy@gmail.com>
+ * Copyright 2015, 2016 Grygoriy Fuchedzhy <grygoriy.fuchedzhy@gmail.com>
  */
 
 #include <gli/load.hpp>
@@ -74,6 +74,6 @@ void CTextureProgramInputImpl::attach() const
    {
       gl(glActiveTexture, GL_TEXTURE0 + mSamplerID);
       mTexture->bind();
-      glsl::attachUniform(mLocation, mSamplerID);
+      glsl::attach_uniform(mLocation, mSamplerID);
    }
 }

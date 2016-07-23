@@ -33,11 +33,11 @@ class TVertexArrayObjectProgramInput<std::tuple<TNamedAttribs...>>
       using tDeclTag = tag::vertex;
 
       /// @brief ctstring containing glsl declaration of attributes
-      using tDeclaration = ct::string_cat<typename TNamedAttribs::tAttribTraits::template tDeclaration<typename TNamedAttribs::tName>...>;
+      using tDeclaration = ct::string_cat<typename TNamedAttribs::tAttribTraits::template declaration<typename TNamedAttribs::tName>...>;
 
       /// @brief constructor
       TVertexArrayObjectProgramInput(const GLuint program)
-         : mLocations{{glsl::getAttribLocation(program, TNamedAttribs::tName::chars)...}}
+         : mLocations{{glsl::get_attrib_loc(program, TNamedAttribs::tName::chars)...}}
          , mProgramID(program)
       {}
 
@@ -52,7 +52,7 @@ class TVertexArrayObjectProgramInput<std::tuple<TNamedAttribs...>>
       {
          using tVAOTuple = std::tuple<ct::named_type<TName, TData>...>;
          using tRequiredVAOTuple =  std::tuple<ct::named_type<typename TNamedAttribs::tName,
-                                                              typename TNamedAttribs::tAttribTraits::tData>...>;
+                                                              typename TNamedAttribs::tAttribTraits::data>...>;
          static_assert(!ct::tuple_any_of<tRequiredVAOTuple, doesnt_contain, tVAOTuple>::value, "not all or not matching type inputs for program was provided by given vao");
 
          vao.bind();
@@ -74,7 +74,7 @@ class TVertexArrayObjectProgramInput<std::tuple<TNamedAttribs...>>
       {
          using tVAOTuple = std::tuple<ct::named_type<TName, TData>...>;
          using tRequiredVAOTuple =  std::tuple<ct::named_type<typename TNamedAttribs::tName,
-                                                              typename TNamedAttribs::tAttribTraits::tData>...>;
+                                                              typename TNamedAttribs::tAttribTraits::data>...>;
          static_assert(!ct::tuple_any_of<tRequiredVAOTuple, doesnt_contain, tVAOTuple>::value, "not all or not matching type inputs for program was provided by given vao");
 
          vao.bind();
