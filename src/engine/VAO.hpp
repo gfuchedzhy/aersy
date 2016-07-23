@@ -5,7 +5,7 @@
 #ifndef ENGINE_VAO_HPP
 #define ENGINE_VAO_HPP
 
-#include "BufferObject.hpp"
+#include <glcxx/src/buffer.hpp>
 #include <bitset>
 
 /// @brief base VAO class, resource holder
@@ -86,9 +86,9 @@ template<bool hasIndexBuffer, typename... TName, typename... TData>
 class TVertexArrayObject<hasIndexBuffer, ct::named_type<TName, TData>...> : public CVertexArrayObjectBase
 {
       /// @brief buffer tuple
-      using tBuffers = ct::tuple_cat<std::tuple<tBufferPtr<TData>...>, // VBOs
+      using tBuffers = ct::tuple_cat<std::tuple<buffer_ptr<TData>...>, // VBOs
                                      // optional index buffer
-                                     typename std::conditional<hasIndexBuffer, std::tuple<tIndexBufferPtr>, std::tuple<>>::type>;
+                                     typename std::conditional<hasIndexBuffer, std::tuple<index_buffer_ptr>, std::tuple<>>::type>;
 
       /// @brief buffer tuple
       tBuffers mBuffers;
@@ -126,7 +126,7 @@ class TVertexArrayObject<hasIndexBuffer, ct::named_type<TName, TData>...> : publ
       template<bool _hasIndexBuffer = hasIndexBuffer> // for SFINAE
       typename std::enable_if<_hasIndexBuffer>::type drawElements() const
       {
-         const tIndexBufferPtr& p = std::get<traits<cts("indices")>::index>(mBuffers);
+         const index_buffer_ptr& p = std::get<traits<cts("indices")>::index>(mBuffers);
          assert(p);
          p->draw();
       }
@@ -148,11 +148,11 @@ class TVertexArrayObject<hasIndexBuffer, ct::named_type<TName, TData>...> : publ
       typename std::enable_if<hasIndexBuffer && std::is_same<Name, cts("indices")>::value>::type
       upload(const T* data, size_t size, GLenum mode, GLenum usage = 0)
       {
-         tIndexBufferPtr& ptr = std::get<traits<cts("indices")>::index>(mBuffers);
+         index_buffer_ptr& ptr = std::get<traits<cts("indices")>::index>(mBuffers);
          if (ptr)
             ptr->upload(data, size, mode, usage);
          else
-            ptr = make_indexBuffer(data, size, mode, usage ? usage : GL_STATIC_DRAW);
+            ptr = make_index_buffer(data, size, mode, usage ? usage : GL_STATIC_DRAW);
       }
 };
 
@@ -160,7 +160,7 @@ class TVertexArrayObject<hasIndexBuffer, ct::named_type<TName, TData>...> : publ
 template<typename...TName, typename... TBufferPtr>
 inline auto make_vao(TBufferPtr&&... buf)
 {
-   tVAO<ct::named_type<TName, typename std::remove_reference<TBufferPtr>::type::element_type::tData>...> vao;
+   tVAO<ct::named_type<TName, typename std::remove_reference<TBufferPtr>::type::element_type::data>...> vao;
    swallow(vao.template set<TName>(std::forward<TBufferPtr>(buf)));
    return vao;
 }
@@ -169,7 +169,7 @@ inline auto make_vao(TBufferPtr&&... buf)
 template<typename...TName, typename TIndexBufferPtr, typename... TBufferPtr>
 inline auto make_vao(TIndexBufferPtr&& indices, TBufferPtr&&... buf)
 {
-   tIndexedVAO<ct::named_type<TName, typename std::remove_reference<TBufferPtr>::type::element_type::tData>...> vao;
+   tIndexedVAO<ct::named_type<TName, typename std::remove_reference<TBufferPtr>::type::element_type::data>...> vao;
    vao.template set<cts("indices")>(std::forward<TIndexBufferPtr>(indices));
    swallow(vao.template set<TName>(std::forward<TBufferPtr>(buf)));
    return vao;
