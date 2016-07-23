@@ -30,10 +30,10 @@ class TVertexArrayObjectProgramInput<std::tuple<TNamedAttribs...>>
 
    public:
       /// @brief vao holds VBOs, which are always vertex shader inputs
-      using tDeclTag = tag::vertex;
+      using decl_tag = tag::vertex;
 
       /// @brief ctstring containing glsl declaration of attributes
-      using tDeclaration = ct::string_cat<typename TNamedAttribs::tAttribTraits::template declaration<typename TNamedAttribs::tName>...>;
+      using declaration = ct::string_cat<typename TNamedAttribs::tAttribTraits::template declaration<typename TNamedAttribs::tName>...>;
 
       /// @brief constructor
       TVertexArrayObjectProgramInput(const GLuint program)
