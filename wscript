@@ -66,13 +66,13 @@ def build(bld):
     bld(features = 'cxx cxxstlib',
         source   = bld.path.ant_glob(['src/engine/*.cpp', 'src/engine/*.glsl']),
         target   = 'engine',
-        includes = ['src/engine'],
+        includes = ['src/engine', '.'],
         defines  = defines,
         use      = ['sfml', 'cxxflags', 'opengl'])
 
     bld(features = 'cxx cxxprogram strip',
         source   = bld.path.ant_glob('src/app/*.cpp'),
         target   = appname + '.out',
-        includes = ['src/engine'],
+        includes = ['src/engine', '.'],
         defines  = defines,
         use      = ['engine', 'cxxflags', 'sfml', 'assimp'])
