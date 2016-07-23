@@ -29,8 +29,8 @@ void CJetFlame::draw(const CContext& context) const
       p.set<cts("uSize")>(mSize);
       p.set<cts("uAtlasSize")>(mAtlasSize);
       p.set<cts("uTexture")>(mTexture);
-      SDisableDepthMaskGuard dtLock;
-      SEnableBlendingGuard bLock(GL_SRC_ALPHA, GL_ONE);
+      glcxx::disable_depth_mask_guard dtLock;
+      glcxx::enable_blending_guard bLock(GL_SRC_ALPHA, GL_ONE);
       p.drawArrays(mVAO, aliveParticleNum(), GL_POINTS);
    }
 }

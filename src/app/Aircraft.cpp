@@ -107,7 +107,7 @@ void CAircraft::draw(const CContext& context) const
    p2.set<cts("uModel")>(model());
 
    {
-      SEnableBlendingGuard lock;
+      glcxx::enable_blending_guard lock;
       for (const auto& m: mMeshes)
          m.draw(context);
    }

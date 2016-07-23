@@ -7,7 +7,7 @@
 
 #include "Programs.hpp"
 #include "Renderer.hpp"
-#include "GLState.hpp"
+#include <glcxx/src/capabilities.hpp>
 
 /// @brief drawing context
 class CContext
@@ -38,7 +38,7 @@ class CContext
          // setup default flags
          gl(glEnable, GL_DEPTH_TEST);
          gl(glEnable, GL_CULL_FACE);
-         gl(glBlendFunc, SEnableBlendingGuard::defaultSrcFactor, SEnableBlendingGuard::defaultDstFactor);
+         glcxx::enable_blending_guard::set_default_factors();
       }
 
       /// @brief return drawing program

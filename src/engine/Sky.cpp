@@ -44,15 +44,15 @@ CSky::CSky(tTexturePtr tex, float horizonDistance)
 void CSky::draw(const CContext& context) const
 {
    {
-      SDisableDepthTestGuard lock;
+      glcxx::disable_depth_test_guard lock;
       auto& p = context.getProgram<cts("regular-tex")>();
       p.set<cts("uModel")>(model());
       p.set<cts("uTexture")>(mTexture);
       p.drawElements(mVAO);
    }
 
-   SDisableDepthMaskGuard dmLock;
-   SEnableBlendingGuard bLock;
+   glcxx::disable_depth_mask_guard dmLock;
+   glcxx::enable_blending_guard bLock;
    for (const auto& c : mClouds)
       c.draw(context);
 }

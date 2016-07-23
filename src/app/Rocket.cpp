@@ -3,7 +3,7 @@
  */
 
 #include "Rocket.hpp"
-#include "GLState.hpp"
+#include "glcxx/src/capabilities.hpp"
 
 void CRocket::launch(const glm::vec3& pos, const glm::vec3& dir, float initialSpeed)
 {
@@ -53,8 +53,8 @@ void CRocket::draw(const CContext& context) const
       mFlame.draw(context);
       if (mExploded && mExplosion.cycles() == 0)
       {
-         SDisableDepthMaskGuard dmLock;
-         SEnableBlendingGuard bLock(GL_SRC_ALPHA, GL_ONE);
+         glcxx::disable_depth_mask_guard dmLock;
+         glcxx::enable_blending_guard bLock(GL_SRC_ALPHA, GL_ONE);
          mExplosion.draw(context);
       }
    }

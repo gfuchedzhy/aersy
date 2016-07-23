@@ -71,6 +71,6 @@ void CHealthBar::draw(const CContext& context) const
    p.set<cts("uSize")>(mSize);
    p.set<cts("uValue")>(mValue);
 
-   SDisableDepthTestGuard lock;
+   glcxx::disable_depth_test_guard lock;
    p.drawElements(vao);
 }

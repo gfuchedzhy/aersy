@@ -200,7 +200,7 @@ void CApp::draw() const
    mSky.draw(mContext);
 
    {
-      SEnableBlendingGuard lock;
+      glcxx::enable_blending_guard lock;
       for (const auto& s : mStars)
          s.draw(mContext);
    }

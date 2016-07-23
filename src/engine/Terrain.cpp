@@ -30,7 +30,7 @@ CTerrain::CTerrain(tTexturePtr tex)
 
 void CTerrain::draw(const CContext& context) const
 {
-   SDisableDepthTestGuard lock;
+   glcxx::disable_depth_test_guard lock;
    auto& p = context.getProgram<cts("regular-tex")>();
    p.set<cts("uTexture")>(mTexture);
 
