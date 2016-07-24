@@ -5,8 +5,7 @@
 #ifndef ENGINE_RENDERER_HPP
 #define ENGINE_RENDERER_HPP
 
-#include "Program.hpp"
-#include <SFML/Window.hpp>
+#include <glcxx/src/program.hpp>
 
 /// @brief renderer, implements program creation and program selection
 /// @tparam list of program names
@@ -23,7 +22,7 @@ class TRenderer
 
       /// @brief program type by its name
       template<typename TName>
-      using program_type = TProgram<TName, decltype(progInputDef(TName{}))>;
+      using program_type = program<TName, decltype(progInputDef(TName{}))>;
 
    public:
       /// @brief initializes all programs of this renderer

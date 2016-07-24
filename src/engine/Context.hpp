@@ -8,6 +8,7 @@
 #include "Programs.hpp"
 #include "Renderer.hpp"
 #include <glcxx/src/capabilities.hpp>
+#include <SFML/Window.hpp>
 
 /// @brief drawing context
 class CContext

@@ -5,7 +5,7 @@
 #ifndef ENGINE_PROGRAMS_HPP
 #define ENGINE_PROGRAMS_HPP
 
-#include "Program.hpp"
+#include <glcxx/src/program.hpp>
 #include <glcxx/src/uniform_input.hpp>
 #include <glcxx/src/texture_input.hpp>
 
