@@ -7,12 +7,12 @@
 #include "Context.hpp"
 #include "Utils.hpp"
 
-CSky::CSky(texture_ptr tex, float horizonDistance)
+CSky::CSky(glcxx::texture_ptr tex, float horizonDistance)
    : mTexture(std::move(tex))
 {
    scale({horizonDistance, horizonDistance, horizonDistance});
 
-   std::array<texture_ptr, 5> cloudTextures;
+   std::array<glcxx::texture_ptr, 5> cloudTextures;
    for (int i = 0; i < cloudTextures.size(); ++i)
       cloudTextures[i] = make_texture(std::string("res/cloud") + std::to_string(i+1) + ".dds");
 

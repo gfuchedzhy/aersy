@@ -13,11 +13,11 @@
 class CTerrain : public IRenderableModel
 {
       /// @brief texture
-      texture_ptr mTexture;
+      glcxx::texture_ptr mTexture;
 
       /// @brief vao
-      indexed_vao<ct::named_type<cts("aPos"), glm::vec3>,
-                  ct::named_type<cts("aUV"),  glm::vec2>> mVAO;
+      glcxx::indexed_vao<glcxx::tpair<cts("aPos"), glm::vec3>,
+                         glcxx::tpair<cts("aUV"),  glm::vec2>> mVAO;
 
       /// @brief terrain center
       glm::vec2 mCenter;
@@ -27,7 +27,7 @@ class CTerrain : public IRenderableModel
 
    public:
       /// @brief constructor
-      CTerrain(texture_ptr tex);
+      CTerrain(glcxx::texture_ptr tex);
 
       /// @brief set region where to draw terrain
       void center(const glm::vec2& center) { mCenter = center; }

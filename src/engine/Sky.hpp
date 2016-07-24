@@ -17,15 +17,15 @@ class CSky : public IRenderableModel
       std::vector<CTexturedBillboard> mClouds;
 
       /// @brief dome texture
-      texture_ptr mTexture;
+      glcxx::texture_ptr mTexture;
 
       /// @brief vao
-      indexed_vao<ct::named_type<cts("aPos"), glm::vec3>,
-                  ct::named_type<cts("aUV"),  glm::vec2>> mVAO;
+      glcxx::indexed_vao<glcxx::tpair<cts("aPos"), glm::vec3>,
+                         glcxx::tpair<cts("aUV"),  glm::vec2>> mVAO;
 
    public:
       /// @brief constructor
-      CSky(texture_ptr tex, float horizonDistance);
+      CSky(glcxx::texture_ptr tex, float horizonDistance);
 
       /// @brief draw
       void draw(const CContext& context) const override;

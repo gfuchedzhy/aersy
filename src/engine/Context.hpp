@@ -6,7 +6,7 @@
 #define ENGINE_CONTEXT_HPP
 
 #include "Programs.hpp"
-#include "Renderer.hpp"
+#include <glcxx/src/renderer.hpp>
 #include <glcxx/src/capabilities.hpp>
 #include <SFML/Window.hpp>
 
@@ -20,15 +20,15 @@ class CContext
       sf::Context mInternalContext{mContextSettings, 1, 1};
 
       /// @brief renderer holding programs
-      using tRenderer = TRenderer<cts("regular-col"),
-                                  cts("regular-tex"),
-                                  cts("shaded-col"),
-                                  cts("shaded-tex"),
-                                  cts("shaded-tex-nmap"),
-                                  cts("billboard-tex"),
-                                  cts("billboard-tex-sprite"),
-                                  cts("billboard-hb"),
-                                  cts("particlesys-tex-sprite-flame")>;
+      using tRenderer = glcxx::renderer<cts("regular-col"),
+                                        cts("regular-tex"),
+                                        cts("shaded-col"),
+                                        cts("shaded-tex"),
+                                        cts("shaded-tex-nmap"),
+                                        cts("billboard-tex"),
+                                        cts("billboard-tex-sprite"),
+                                        cts("billboard-hb"),
+                                        cts("particlesys-tex-sprite-flame")>;
       // renderer state doesn't change logical const of context
       mutable tRenderer mRenderer;
 
@@ -46,7 +46,7 @@ class CContext
       template<typename TName>
       auto& getProgram() const
       {
-         return mRenderer.getProgram<TName>();
+         return mRenderer.get_program<TName>();
       }
 
       /// @brief return context settings

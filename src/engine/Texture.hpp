@@ -10,7 +10,7 @@
 #include <memory>
 
 /// @brief texture object
-class CTexture : public texture
+class CTexture : public glcxx::texture
 {
    public:
       /// @brief reads texture from file, uploads to gpu
@@ -18,7 +18,7 @@ class CTexture : public texture
 };
 
 /// @brief make texture
-inline texture_ptr make_texture(const std::string& filename)
+inline glcxx::texture_ptr make_texture(const std::string& filename)
 {
    return std::make_shared<CTexture>(filename);
 }

@@ -36,11 +36,11 @@ class CTexturedBillboard : public CBillboard
 {
    protected:
       /// @brief texture
-      texture_ptr mTexture;
+      glcxx::texture_ptr mTexture;
 
    public:
       /// @brief set texture
-      void texture(texture_ptr tex) { mTexture = std::move(tex); }
+      void texture(glcxx::texture_ptr tex) { mTexture = std::move(tex); }
 
       /// @brief draw
       void draw(const CContext& context) const override;

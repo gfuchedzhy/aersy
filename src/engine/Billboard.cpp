@@ -11,7 +11,7 @@ namespace
    auto& indexBuffer()
    {
       static const GLubyte data[] = {0, 1, 3, 2};
-      static auto buffer = make_index_buffer(data, size(data), GL_TRIANGLE_STRIP);
+      static auto buffer = glcxx::make_index_buffer(data, size(data), GL_TRIANGLE_STRIP);
       return buffer;
    }
 
@@ -25,7 +25,7 @@ namespace
          {1.f, 0.f},
          {0.f, 0.f}
       };
-      static auto buffer = make_buffer(data, size(data));
+      static auto buffer = glcxx::make_buffer(data, size(data));
       return buffer;
    }
 
@@ -37,14 +37,14 @@ namespace
          { 0.5f, 0.5f, 0.f},
          {-0.5f, 0.5f, 0.f}
       };
-      static auto buffer = make_buffer(data, size(data));
+      static auto buffer = glcxx::make_buffer(data, size(data));
       return buffer;
    }
 }
 
 void CTexturedBillboard::draw(const CContext& context) const
 {
-   static auto vao = make_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
+   static auto vao = glcxx::make_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
    auto& p = context.getProgram<cts("billboard-tex")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
@@ -54,7 +54,7 @@ void CTexturedBillboard::draw(const CContext& context) const
 
 void CAnimatedBillboard::draw(const CContext& context) const
 {
-   static auto vao = make_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
+   static auto vao = glcxx::make_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
    auto& p = context.getProgram<cts("billboard-tex-sprite")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
@@ -66,7 +66,7 @@ void CAnimatedBillboard::draw(const CContext& context) const
 
 void CHealthBar::draw(const CContext& context) const
 {
-   static auto vao = make_vao<cts("aPos")>(indexBuffer(), posBuffer());
+   static auto vao = glcxx::make_vao<cts("aPos")>(indexBuffer(), posBuffer());
    auto& p = context.getProgram<cts("billboard-hb")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
