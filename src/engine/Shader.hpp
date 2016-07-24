@@ -1,11 +1,11 @@
 /*
- * Copyright 2015 Grygoriy Fuchedzhy <grygoriy.fuchedzhy@gmail.com>
+ * Copyright 2015, 2016 Grygoriy Fuchedzhy <grygoriy.fuchedzhy@gmail.com>
  */
 
 #ifndef ENGINE_SHADER_HPP
 #define ENGINE_SHADER_HPP
 
-#include "GL.hpp"
+#include <glcxx/src/gl.hpp>
 #include <string>
 
 /// @brief shader holder

@@ -5,6 +5,7 @@
 #include "Sky.hpp"
 #include "Sphere.hpp"
 #include "Context.hpp"
+#include "Utils.hpp"
 
 CSky::CSky(texture_ptr tex, float horizonDistance)
    : mTexture(std::move(tex))

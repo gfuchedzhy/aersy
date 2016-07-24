@@ -7,6 +7,7 @@
 
 #include "Model.hpp"
 #include "Texture.hpp"
+#include <vector>
 
 /// @brief generates indices, vertices, tex coords and optionally tangents for
 /// halfsphere

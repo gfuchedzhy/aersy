@@ -4,6 +4,7 @@
 
 #include "Shader.hpp"
 #include <memory>
+#include "Log.hpp"
 
 CShader::CShader(const std::string& src, const GLenum shaderType)
 {

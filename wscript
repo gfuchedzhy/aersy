@@ -39,6 +39,7 @@ def process(self, node):
 
 gl_logging_values = ['none', 'err', 'all']
 def options(opt):
+    opt.recurse('glcxx')
     opt.recurse('res')
     opt.load('compiler_cxx')
     opt.add_option('--gl-log', action='store', default="none", help='controlls opengl call logging, possible values ' + str(gl_logging_values))
@@ -48,6 +49,7 @@ def configure(cnf):
         cnf.fatal("--gl-log should be one of " + str(gl_logging_values))
     cnf.env.GL_LOG = cnf.options.gl_log
 
+    cnf.recurse('glcxx')
     cnf.recurse('res')
     cnf.load('compiler_cxx')
     cnf.find_program('strip')
@@ -59,6 +61,7 @@ def configure(cnf):
     cnf.check_cxx(cxxflags='-std=c++11', header_name='gli/load.hpp')
 
 def build(bld):
+    bld.recurse('glcxx')
     bld.recurse('res')
 
     appname = 'aersy'
@@ -75,4 +78,4 @@ def build(bld):
         target   = appname + '.out',
         includes = ['src/engine', '.'],
         defines  = defines,
-        use      = ['engine', 'cxxflags', 'sfml', 'assimp'])
+        use      = ['engine', 'cxxflags', 'sfml', 'assimp', 'glcxx'])

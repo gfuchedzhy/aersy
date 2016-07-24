@@ -3,9 +3,12 @@
  */
 
 #include "Terrain.hpp"
-#include "Context.hpp"
+
 #include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
+#include "Utils.hpp"
+#include "Context.hpp"
+
 
 CTerrain::CTerrain(texture_ptr tex)
    : mTexture(std::move(tex))

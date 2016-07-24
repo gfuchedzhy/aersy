@@ -5,10 +5,11 @@
 #ifndef ENGINE_FLAME_HPP
 #define ENGINE_FLAME_HPP
 
+#include <glcxx/src/vao.hpp>
 #include "Renderable.hpp"
 #include "Billboard.hpp"
 #include "Particle.hpp"
-#include <glcxx/src/vao.hpp>
+#include "Utils.hpp"
 
 /// @brief jet flame with trail
 class CJetFlame : public CTexturedBillboard, public TParticleSystem<SParticle, CJetFlame>

@@ -31,12 +31,6 @@ namespace Log
       return stream << (onOff.mValue ? "on" : "off");
    }
 
-   /// @brief stream nullptr
-   inline std::ostream& operator<<(std::ostream& stream, std::nullptr_t)
-   {
-      return stream << "null";
-   }
-
    /// @brief stream vec2
    template<typename T, glm::precision P>
    inline std::ostream& operator<<(std::ostream& stream, const glm::tvec2<T, P>& vec)
@@ -89,32 +83,6 @@ namespace Log
       stream << '[';
       for (size_t i = 0; i < N; ++i)
          stream << arr[i] << (i+1 < N ? ',' : ']');
-      return stream;
-   }
-
-   /// @brief stream empty tuple
-   inline std::ostream& operator<<(std::ostream& stream, const std::tuple<>&)
-   {
-      return stream << "()";
-   }
-
-   namespace detail
-   {
-      /// @brief helper to stream non empty tuple
-      template<typename TArg1, typename... TArgs, size_t... I>
-      inline void ostreamTupleHelper(std::ostream& stream, const std::tuple<TArg1, TArgs...>& t, std::index_sequence<I...>)
-      {
-         stream << '(' << std::get<0>(t);
-         swallow(stream << ',' << std::get<I+1>(t));
-         stream << ')';
-      }
-   }
-
-   /// @brief stream non empty tuple
-   template<typename TArg1, typename... TArgs>
-   inline std::ostream& operator<<(std::ostream& stream, const std::tuple<TArg1, TArgs...>& t)
-   {
-      detail::ostreamTupleHelper(stream, t, std::make_index_sequence<sizeof...(TArgs)>{});
       return stream;
    }
 

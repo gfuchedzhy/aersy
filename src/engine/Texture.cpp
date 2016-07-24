@@ -4,6 +4,7 @@
 
 #include <gli/load.hpp>
 #include "Texture.hpp"
+#include "Log.hpp"
 
 CTexture::CTexture(const std::string& filename)
    : texture(GL_TEXTURE_2D)

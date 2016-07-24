@@ -3,6 +3,7 @@
  */
 
 #include "Program.hpp"
+#include "Log.hpp"
 
 namespace
 {

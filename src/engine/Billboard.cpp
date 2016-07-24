@@ -4,6 +4,7 @@
 
 #include "Billboard.hpp"
 #include "Context.hpp"
+#include "Utils.hpp"
 
 namespace
 {

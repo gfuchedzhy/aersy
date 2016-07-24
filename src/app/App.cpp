@@ -4,6 +4,7 @@
 
 #include "App.hpp"
 #include "Texture.hpp"
+#include "Log.hpp"
 
 namespace
 {
