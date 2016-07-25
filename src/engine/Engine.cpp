@@ -11,10 +11,6 @@ CEngine::CEngine(const size_t width, const size_t height)
    , mTime(std::chrono::steady_clock::now())
 {
    mWindow.setVerticalSyncEnabled(true);
-   glcxx::set_glerror_cb([](const std::stringstream& func, const char* scope, GLenum err)
-                         {
-                            Log::err("gl error code ", err, " in ", func.rdbuf(), " at ", scope);
-                         });
 }
 
 void CEngine::run()

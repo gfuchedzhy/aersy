@@ -34,13 +34,7 @@ class CContext
 
    public:
       /// @brief constructor
-      CContext()
-      {
-         // setup default flags
-         gl(glEnable, GL_DEPTH_TEST);
-         gl(glEnable, GL_CULL_FACE);
-         glcxx::enable_blending_guard::set_default_factors();
-      }
+      CContext();
 
       /// @brief return drawing program
       template<typename TName>
