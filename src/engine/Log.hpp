@@ -92,7 +92,7 @@ namespace Log
       template<typename... TArgs>
       inline void streamLog(std::ostream& s, const TArgs&... args)
       {
-         swallow(s << args);
+         glcxx_swallow(s << args);
          s << std::endl;
       }
    }

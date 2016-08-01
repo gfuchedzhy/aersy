@@ -37,18 +37,17 @@ def process(self, node):
     self.create_task('glsl', node, cpp_node)
     self.source.append(cpp_node)
 
-gl_logging_values = ['none', 'err', 'all']
 def options(opt):
+    opt.add_option('--suppress-gl-error-checks', action='store_true', default=False, help='do not check opengl errors')
     opt.recurse('glcxx')
     opt.recurse('res')
     opt.load('compiler_cxx')
-    opt.add_option('--gl-log', action='store', default="none", help='controlls opengl call logging, possible values ' + str(gl_logging_values))
 
+appname='aersy'
 def configure(cnf):
-    if not cnf.options.gl_log in gl_logging_values:
-        cnf.fatal("--gl-log should be one of " + str(gl_logging_values))
-    cnf.env.GL_LOG = cnf.options.gl_log
-
+    cnf.env.append_value('DEFINES', 'APPNAME="' + appname + '"')
+    if cnf.options.suppress_gl_error_checks:
+        cnf.env.append_value('DEFINES', 'GLCXX_SUPPRESS_GL_ERROR_CHECKS')
     cnf.recurse('glcxx')
     cnf.recurse('res')
     cnf.load('compiler_cxx')
@@ -64,18 +63,14 @@ def build(bld):
     bld.recurse('glcxx')
     bld.recurse('res')
 
-    appname = 'aersy'
-    defines = ['APPNAME="' + appname + '"', 'GL_LOG_' + bld.env.GL_LOG.upper()]
     bld(features = 'cxx cxxstlib',
         source   = bld.path.ant_glob(['src/engine/*.cpp', 'src/engine/*.glsl']),
         target   = 'engine',
         includes = ['src/engine', '.'],
-        defines  = defines,
         use      = ['sfml', 'cxxflags', 'opengl'])
 
     bld(features = 'cxx cxxprogram strip',
         source   = bld.path.ant_glob('src/app/*.cpp'),
         target   = appname + '.out',
         includes = ['src/engine', '.'],
-        defines  = defines,
         use      = ['engine', 'cxxflags', 'sfml', 'assimp', 'glcxx'])

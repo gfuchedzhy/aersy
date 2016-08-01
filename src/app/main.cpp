@@ -9,10 +9,12 @@
 /// @brief entry point
 int main()
 {
+#ifndef GLCXX_SUPPRESS_GL_ERROR_CHECKS
    glcxx::set_glerror_cb([](const std::stringstream& func, const char* scope, GLenum err)
                          {
                             Log::err("gl error code ", err, " in ", func.rdbuf(), " at ", scope);
                          });
+#endif
    // catch and rethrow to properly free all gl resources even in case of
    // exception
    try

@@ -26,30 +26,30 @@ CTexture::CTexture(const std::string& filename)
    const glm::tvec3<GLsizei> dimensions(texture.dimensions());
 
    bind();
-   gl(glTexParameteri, mTarget, GL_TEXTURE_BASE_LEVEL, 0);
-   gl(glTexParameteri, mTarget, GL_TEXTURE_MAX_LEVEL, levels);
-   gl(glTexParameteri, mTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-   gl(glTexParameteri, mTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_BASE_LEVEL, 0);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_MAX_LEVEL, levels);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-   gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_R, format.Swizzle[0]);
-   gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_G, format.Swizzle[1]);
-   gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_B, format.Swizzle[2]);
-   gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_A, format.Swizzle[3]);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_R, format.Swizzle[0]);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_G, format.Swizzle[1]);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_B, format.Swizzle[2]);
+   glcxx_gl(glTexParameteri, mTarget, GL_TEXTURE_SWIZZLE_A, format.Swizzle[3]);
 
-   gl(glTexStorage2D, mTarget, levels, format.Internal, dimensions.x, dimensions.y);
+   glcxx_gl(glTexStorage2D, mTarget, levels, format.Internal, dimensions.x, dimensions.y);
    for(int l = 0; l < levels; ++l)
    {
       assert(gli::TARGET_2D == texture.target());
       const glm::tvec3<GLsizei> subImageDimensions(texture.dimensions(l));
       if(gli::is_compressed(texture.format()))
-         gl(glCompressedTexSubImage2D,
-            mTarget, l, 0, 0, subImageDimensions.x, subImageDimensions.y,
-            format.Internal, static_cast<GLsizei>(texture.size(l)),
-            texture.data(0, 0, l));
+         glcxx_gl(glCompressedTexSubImage2D,
+                  mTarget, l, 0, 0, subImageDimensions.x, subImageDimensions.y,
+                  format.Internal, static_cast<GLsizei>(texture.size(l)),
+                  texture.data(0, 0, l));
       else
-         gl(glTexSubImage2D,
-            mTarget, l, 0, 0, subImageDimensions.x, subImageDimensions.y,
-            format.External, format.Type, texture.data(0, 0, l));
+         glcxx_gl(glTexSubImage2D,
+                  mTarget, l, 0, 0, subImageDimensions.x, subImageDimensions.y,
+                  format.External, format.Type, texture.data(0, 0, l));
    }
    unbind();
 }

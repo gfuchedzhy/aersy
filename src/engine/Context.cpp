@@ -57,7 +57,7 @@ CContext::CContext()
    : mRenderer("#version 330", glslCommonDecl)
 {
    // setup default flags
-   gl(glEnable, GL_DEPTH_TEST);
-   gl(glEnable, GL_CULL_FACE);
+   glcxx_gl(glEnable, GL_DEPTH_TEST);
+   glcxx_gl(glEnable, GL_CULL_FACE);
    glcxx::enable_blending_guard::set_default_factors();
 }
