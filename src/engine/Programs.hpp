@@ -9,82 +9,86 @@
 #include <glcxx/src/uniform_input.hpp>
 #include <glcxx/src/texture_input.hpp>
 
-template<typename TName>
-const char* programSrc();
+namespace programs
+{
+   using namespace glcxx;
 
-#define inp_by_name(name) decltype(progInputDef(cts(name){}))
+   using regular = program<
+      attrib_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
+      uniform_input<cts("uModel"), uniform<glm::tmat4x4>>,
+      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>>;
 
-auto progInputDef(cts("regular")) -> std::tuple<
-   glcxx::attrib_input<cts("aPos"), glcxx::attrib<glm::tvec3, float, float, 1>>,
-   glcxx::uniform_input<cts("uModel"), glcxx::uniform<glm::tmat4x4>>,
-   glcxx::uniform_input<cts("uViewProj"), glcxx::uniform<glm::tmat4x4>>>;
+   using regular_col = derive_program<regular, uniform_input<cts("uColor"), uniform<glm::tvec3>, tag::fragment>>;
 
-auto progInputDef(cts("regular-col")) -> glcxx::ct::tuple_append<inp_by_name("regular"),
-   glcxx::uniform_input<cts("uColor"), glcxx::uniform<glm::tvec3>, glcxx::tag::fragment>>;
+   using regular_tex = derive_program<
+      regular,
+      attrib_input<cts("aUV"), attrib<glm::tvec2>>,
+      texture_input<cts("uTexture")>>;
 
-auto progInputDef(cts("regular-tex")) -> glcxx::ct::tuple_append<inp_by_name("regular"),
-   glcxx::attrib_input<cts("aUV"), glcxx::attrib<glm::tvec2>>,
-   glcxx::texture_input<cts("uTexture")>>;
+   using shaded = program<
+      attrib_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
+      attrib_input<cts("aNorm"), attrib<glm::tvec3>>,
+      uniform_input<cts("uModel"), uniform<glm::tmat4x4>>,
+      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
+      uniform_input<cts("uAmbient"), uniform<glm::tvec3>, tag::fragment>,
+      uniform_input<cts("uDiffuse"), uniform<glm::tvec3>, tag::fragment>,
+      uniform_input<cts("uSpecular"), uniform<glm::tvec3>, tag::fragment>,
+      uniform_input<cts("uShininess"), uniform<glm::tvec1>, tag::fragment>,
+      uniform_input<cts("uSunDir"), uniform<glm::tvec3>, tag::vertfrag>,
+      uniform_input<cts("uEye"), uniform<glm::tvec3>, tag::vertex>>;
 
-auto progInputDef(cts("shaded")) -> std::tuple<
-   glcxx::attrib_input<cts("aPos"), glcxx::attrib<glm::tvec3, float, float, 1>>,
-   glcxx::attrib_input<cts("aNorm"), glcxx::attrib<glm::tvec3>>,
-   glcxx::uniform_input<cts("uModel"), glcxx::uniform<glm::tmat4x4>>,
-   glcxx::uniform_input<cts("uViewProj"), glcxx::uniform<glm::tmat4x4>>,
-   glcxx::uniform_input<cts("uAmbient"), glcxx::uniform<glm::tvec3>, glcxx::tag::fragment>,
-   glcxx::uniform_input<cts("uDiffuse"), glcxx::uniform<glm::tvec3>, glcxx::tag::fragment>,
-   glcxx::uniform_input<cts("uSpecular"), glcxx::uniform<glm::tvec3>, glcxx::tag::fragment>,
-   glcxx::uniform_input<cts("uShininess"), glcxx::uniform<glm::tvec1>, glcxx::tag::fragment>,
-   glcxx::uniform_input<cts("uSunDir"), glcxx::uniform<glm::tvec3>, glcxx::tag::vertfrag>,
-   glcxx::uniform_input<cts("uEye"), glcxx::uniform<glm::tvec3>, glcxx::tag::vertex>>;
+   using shaded_col = derive_program<shaded, uniform_input<cts("uColor"), uniform<glm::tvec3>, tag::fragment>>;
 
-auto progInputDef(cts("shaded-col")) -> glcxx::ct::tuple_append<inp_by_name("shaded"),
-   glcxx::uniform_input<cts("uColor"), glcxx::uniform<glm::tvec3>, glcxx::tag::fragment>>;
+   using shaded_tex = derive_program<
+      shaded,
+      attrib_input<cts("aUV"), attrib<glm::tvec2>>,
+      texture_input<cts("uTexture")>>;
 
-auto progInputDef(cts("shaded-tex")) -> glcxx::ct::tuple_append<inp_by_name("shaded"),
-   glcxx::attrib_input<cts("aUV"), glcxx::attrib<glm::tvec2>>,
-   glcxx::texture_input<cts("uTexture")>>;
+   using shaded_tex_nmap = derive_program<
+      shaded_tex,
+      attrib_input<cts("aTan"), attrib<glm::tvec3>>,
+      texture_input<cts("uNormalMap"), 1>>;
 
-auto progInputDef(cts("shaded-tex-nmap")) -> glcxx::ct::tuple_append<inp_by_name("shaded-tex"),
-   glcxx::attrib_input<cts("aTan"), glcxx::attrib<glm::tvec3>>,
-   glcxx::texture_input<cts("uNormalMap"), 1>>;
+   using billboard = program<
+      attrib_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
+      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
+      uniform_input<cts("uPos"), uniform<glm::tvec3>>,
+      uniform_input<cts("uSize"), uniform<glm::tvec2>>,
+      uniform_input<cts("uEyePos"), uniform<glm::tvec3>>,
+      uniform_input<cts("uUp"), uniform<glm::tvec3>>>;
 
-auto progInputDef(cts("billboard")) -> std::tuple<
-   glcxx::attrib_input<cts("aPos"), glcxx::attrib<glm::tvec3, float, float, 1>>,
-   glcxx::uniform_input<cts("uViewProj"), glcxx::uniform<glm::tmat4x4>>,
-   glcxx::uniform_input<cts("uPos"), glcxx::uniform<glm::tvec3>>,
-   glcxx::uniform_input<cts("uSize"), glcxx::uniform<glm::tvec2>>,
-   glcxx::uniform_input<cts("uEyePos"), glcxx::uniform<glm::tvec3>>,
-   glcxx::uniform_input<cts("uUp"), glcxx::uniform<glm::tvec3>>>;
+   using billboard_tex = derive_program<
+      billboard,
+      attrib_input<cts("aUV"), attrib<glm::tvec2>>,
+      texture_input<cts("uTexture")>>;
 
-auto progInputDef(cts("billboard-tex")) -> glcxx::ct::tuple_append<inp_by_name("billboard"),
-   glcxx::attrib_input<cts("aUV"), glcxx::attrib<glm::tvec2>>,
-   glcxx::texture_input<cts("uTexture")>>;
+   using billboard_tex_sprite = derive_program<
+      billboard_tex,
+      uniform_input<cts("uAtlasSize"), uniform<glm::tvec2, int>>,
+      uniform_input<cts("uAtlasPos"), uniform<glm::tvec2, int>>>;
 
-auto progInputDef(cts("billboard-tex-sprite")) -> glcxx::ct::tuple_append<inp_by_name("billboard-tex"),
-   glcxx::uniform_input<cts("uAtlasSize"), glcxx::uniform<glm::tvec2, int>>,
-   glcxx::uniform_input<cts("uAtlasPos"), glcxx::uniform<glm::tvec2, int>>>;
+   using billboard_hb = derive_program<
+      billboard,
+      uniform_input<cts("uValue"), uniform<glm::tvec1>, tag::fragment>>;
 
-auto progInputDef(cts("billboard-hb")) -> glcxx::ct::tuple_append<inp_by_name("billboard"),
-   glcxx::uniform_input<cts("uValue"), glcxx::uniform<glm::tvec1>, glcxx::tag::fragment>>;
+   using particlesys = program<
+      attrib_input<cts("aPos"), attrib<glm::tvec3>>,
+      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
+      uniform_input<cts("uSize"), uniform<glm::tvec2>, tag::geometry>,
+      uniform_input<cts("uPerspectiveScale"), uniform<glm::tvec2>, tag::geometry>>;
 
-auto progInputDef(cts("particlesys")) -> std::tuple<
-   glcxx::attrib_input<cts("aPos"), glcxx::attrib<glm::tvec3>>,
-   glcxx::uniform_input<cts("uViewProj"), glcxx::uniform<glm::tmat4x4>>,
-   glcxx::uniform_input<cts("uSize"), glcxx::uniform<glm::tvec2>, glcxx::tag::geometry>,
-   glcxx::uniform_input<cts("uPerspectiveScale"), glcxx::uniform<glm::tvec2>, glcxx::tag::geometry>>;
+   using particlesys_tex = derive_program<particlesys, texture_input<cts("uTexture")>>;
 
-auto progInputDef(cts("particlesys-tex")) -> glcxx::ct::tuple_append<inp_by_name("particlesys"),
-   glcxx::texture_input<cts("uTexture")>>;
+   using particlesys_tex_sprite = derive_program<
+      particlesys_tex,
+      // aTime.x is age of particle, aTime.y is age of death
+      attrib_input<cts("aTime"), attrib<glm::tvec2>>,
+      // for optimization purposes aSpeed.xyz is unit speed directon, aSpeed.w is
+      // scalar speed value
+      attrib_input<cts("aSpeed"), attrib<glm::tvec4>>,
+      uniform_input<cts("uAtlasSize"), uniform<glm::tvec2, int, int>, tag::geometry>>;
 
-auto progInputDef(cts("particlesys-tex-sprite")) -> glcxx::ct::tuple_append<inp_by_name("particlesys-tex"),
-   // aTime.x is age of particle, aTime.y is age of death
-   glcxx::attrib_input<cts("aTime"), glcxx::attrib<glm::tvec2>>,
-   // for optimization purposes aSpeed.xyz is unit speed directon, aSpeed.w is
-   // scalar speed value
-   glcxx::attrib_input<cts("aSpeed"), glcxx::attrib<glm::tvec4>>,
-   glcxx::uniform_input<cts("uAtlasSize"), glcxx::uniform<glm::tvec2, int, int>, glcxx::tag::geometry>>;
-
-auto progInputDef(cts("particlesys-tex-sprite-flame")) -> inp_by_name("particlesys-tex-sprite");
+   using particlesys_tex_sprite_flame = particlesys_tex_sprite;
+}
 
 #endif // ENGINE_PROGRAMS_HPP

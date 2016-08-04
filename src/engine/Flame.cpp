@@ -25,7 +25,7 @@ void CJetFlame::draw(const CContext& context) const
 {
    if (hasAliveParticles())
    {
-      auto& p = context.getProgram<cts("particlesys-tex-sprite-flame")>();
+      auto& p = context.getProgram<cts("particlesys_tex_sprite_flame")>();
       p.set<cts("uSize")>(mSize);
       p.set<cts("uAtlasSize")>(mAtlasSize);
       p.set<cts("uTexture")>(mTexture);

@@ -19,16 +19,17 @@ class CContext
       /// @brief underlying sfml context
       sf::Context mInternalContext{mContextSettings, 1, 1};
 
+#define named_program(name) std::pair<cts(#name), programs::name>
       /// @brief renderer holding programs
-      using tRenderer = glcxx::renderer<cts("regular-col"),
-                                        cts("regular-tex"),
-                                        cts("shaded-col"),
-                                        cts("shaded-tex"),
-                                        cts("shaded-tex-nmap"),
-                                        cts("billboard-tex"),
-                                        cts("billboard-tex-sprite"),
-                                        cts("billboard-hb"),
-                                        cts("particlesys-tex-sprite-flame")>;
+      using tRenderer = glcxx::renderer<named_program(regular_col),
+                                        named_program(regular_tex),
+                                        named_program(shaded_col),
+                                        named_program(shaded_tex),
+                                        named_program(shaded_tex_nmap),
+                                        named_program(billboard_tex),
+                                        named_program(billboard_tex_sprite),
+                                        named_program(billboard_hb),
+                                        named_program(particlesys_tex_sprite_flame)>;
       // renderer state doesn't change logical const of context
       mutable tRenderer mRenderer;
 

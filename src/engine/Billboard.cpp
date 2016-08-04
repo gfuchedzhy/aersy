@@ -45,7 +45,7 @@ namespace
 void CTexturedBillboard::draw(const CContext& context) const
 {
    static auto vao = glcxx::make_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
-   auto& p = context.getProgram<cts("billboard-tex")>();
+   auto& p = context.getProgram<cts("billboard_tex")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
    p.set<cts("uTexture")>(mTexture);
@@ -55,7 +55,7 @@ void CTexturedBillboard::draw(const CContext& context) const
 void CAnimatedBillboard::draw(const CContext& context) const
 {
    static auto vao = glcxx::make_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
-   auto& p = context.getProgram<cts("billboard-tex-sprite")>();
+   auto& p = context.getProgram<cts("billboard_tex_sprite")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
    p.set<cts("uAtlasSize")>(mAtlasSize);
@@ -67,7 +67,7 @@ void CAnimatedBillboard::draw(const CContext& context) const
 void CHealthBar::draw(const CContext& context) const
 {
    static auto vao = glcxx::make_vao<cts("aPos")>(indexBuffer(), posBuffer());
-   auto& p = context.getProgram<cts("billboard-hb")>();
+   auto& p = context.getProgram<cts("billboard_hb")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
    p.set<cts("uValue")>(mValue);

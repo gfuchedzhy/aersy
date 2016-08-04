@@ -49,7 +49,7 @@ void CMesh::draw(const CContext& context) const
 
    if (mMaterial->mNormalMap)
    {
-      auto& p = context.getProgram<cts("shaded-tex-nmap")>();
+      auto& p = context.getProgram<cts("shaded_tex_nmap")>();
       p.set<cts("uTexture")>(mMaterial->mDiffuseMap);
       p.set<cts("uAmbient")>(mMaterial->mAmbient);
       p.set<cts("uDiffuse")>(mMaterial->mDiffuse);
@@ -60,7 +60,7 @@ void CMesh::draw(const CContext& context) const
    }
    else
    {
-      auto& p = context.getProgram<cts("shaded-tex")>();
+      auto& p = context.getProgram<cts("shaded_tex")>();
       p.set<cts("uTexture")>(mMaterial->mDiffuseMap);
       p.set<cts("uAmbient")>(mMaterial->mAmbient);
       p.set<cts("uDiffuse")>(mMaterial->mDiffuse);

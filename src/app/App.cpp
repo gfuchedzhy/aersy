@@ -130,35 +130,35 @@ void CApp::update(float timeDelta)
 
    static const glm::vec3 sunDir = {-0.577, -0.577, 0.577};
    /// @todo make automatic uniforms in renderer to remove this code
-   {  auto& p = mContext.getProgram<cts("regular-col")>();
+   {  auto& p = mContext.getProgram<cts("regular_col")>();
       p.set<cts("uViewProj")>(mCamera.viewProj()); }
-   {  auto& p = mContext.getProgram<cts("regular-tex")>();
+   {  auto& p = mContext.getProgram<cts("regular_tex")>();
       p.set<cts("uViewProj")>(mCamera.viewProj()); }
-   {  auto& p = mContext.getProgram<cts("shaded-col")>();
+   {  auto& p = mContext.getProgram<cts("shaded_col")>();
       p.set<cts("uViewProj")>(mCamera.viewProj());
       p.set<cts("uSunDir")>(sunDir);
       p.set<cts("uEye")>(mCamera.eye()); }
-   {  auto& p = mContext.getProgram<cts("shaded-tex")>();
+   {  auto& p = mContext.getProgram<cts("shaded_tex")>();
       p.set<cts("uViewProj")>(mCamera.viewProj());
       p.set<cts("uSunDir")>(sunDir);
       p.set<cts("uEye")>(mCamera.eye()); }
-   {  auto& p = mContext.getProgram<cts("shaded-tex-nmap")>();
+   {  auto& p = mContext.getProgram<cts("shaded_tex_nmap")>();
       p.set<cts("uViewProj")>(mCamera.viewProj());
       p.set<cts("uSunDir")>(sunDir);
       p.set<cts("uEye")>(mCamera.eye()); }
-   {  auto& p = mContext.getProgram<cts("billboard-tex")>();
+   {  auto& p = mContext.getProgram<cts("billboard_tex")>();
       p.set<cts("uViewProj")>(mCamera.viewProj());
       p.set<cts("uUp")>({0, 0, 1});
       p.set<cts("uEyePos")>(mCamera.eye()); }
-   {  auto& p = mContext.getProgram<cts("billboard-tex-sprite")>();
+   {  auto& p = mContext.getProgram<cts("billboard_tex_sprite")>();
       p.set<cts("uViewProj")>(mCamera.viewProj());
       p.set<cts("uUp")>({0, 0, 1});
       p.set<cts("uEyePos")>(mCamera.eye()); }
-   {  auto& p = mContext.getProgram<cts("billboard-hb")>();
+   {  auto& p = mContext.getProgram<cts("billboard_hb")>();
       p.set<cts("uViewProj")>(mCamera.viewProj());
       p.set<cts("uUp")>(mCamera.up());
       p.set<cts("uEyePos")>(mCamera.eye()); }
-   {  auto& p = mContext.getProgram<cts("particlesys-tex-sprite-flame")>();
+   {  auto& p = mContext.getProgram<cts("particlesys_tex_sprite_flame")>();
       p.set<cts("uViewProj")>(mCamera.viewProj());
       p.set<cts("uPerspectiveScale")>(mCamera.perspectiveScale()); }
 }

@@ -34,7 +34,7 @@ CTerrain::CTerrain(glcxx::texture_ptr tex)
 void CTerrain::draw(const CContext& context) const
 {
    glcxx::disable_depth_test_guard lock;
-   auto& p = context.getProgram<cts("regular-tex")>();
+   auto& p = context.getProgram<cts("regular_tex")>();
    p.set<cts("uTexture")>(mTexture);
 
    const float size = scale().x;

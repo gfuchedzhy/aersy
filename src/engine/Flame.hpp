@@ -18,9 +18,9 @@ class CJetFlame : public CTexturedBillboard, public TParticleSystem<SParticle, C
       using tParticleSystem = TParticleSystem<SParticle, CJetFlame>;
 
       /// @brief vao
-      glcxx::vao<glcxx::tpair<cts("aPos"),   glm::vec3>,
-                 glcxx::tpair<cts("aSpeed"), glm::vec4>,
-                 glcxx::tpair<cts("aTime"),  glm::vec2>> mVAO;
+      glcxx::vao<std::pair<cts("aPos"),   glm::vec3>,
+                 std::pair<cts("aSpeed"), glm::vec4>,
+                 std::pair<cts("aTime"),  glm::vec2>> mVAO;
 
       /// @brief atlas size
       glm::ivec2 mAtlasSize;

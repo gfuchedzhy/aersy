@@ -21,15 +21,16 @@ class glsl(Task.Task):
         return "Processing"
     def run(self):
         with open(self.outputs[0].abspath(), 'w') as out, open(self.inputs[0].abspath()) as inp:
-           print('#include "Utils.hpp"', file=out)
+           print('#include <glcxx/src/utils.hpp>', file=out)
+           print('namespace glcxx {', file=out)
            print('template<typename TName>', file=out)
-           print('const char* programSrc();\n', file=out)
+           print('const char* get_program_src();\n', file=out)
            print('template<>', file=out)
-           print('const char* programSrc<cts("' + path.splitext(path.basename(self.inputs[0].abspath()))[0] + '")>()', file=out)
+           print('const char* get_program_src<cts("' + path.splitext(path.basename(self.inputs[0].abspath()))[0] + '")>()', file=out)
            print('{\n\tstatic char retval[] = R"(', file=out)
            for line in inp:
                print(line, file=out, end='')
-           print(')";\n\treturn retval;}', file=out)
+           print(')";\n\treturn retval;\n}\n}', file=out)
 
 @TaskGen.extension('.glsl')
 def process(self, node):

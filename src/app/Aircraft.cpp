@@ -101,9 +101,9 @@ void CAircraft::update(float timeDelta)
 
 void CAircraft::draw(const CContext& context) const
 {
-   auto& p = context.getProgram<cts("shaded-tex")>();
+   auto& p = context.getProgram<cts("shaded_tex")>();
    p.set<cts("uModel")>(model());
-   auto& p2 = context.getProgram<cts("shaded-tex-nmap")>();
+   auto& p2 = context.getProgram<cts("shaded_tex_nmap")>();
    p2.set<cts("uModel")>(model());
 
    {
