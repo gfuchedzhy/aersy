@@ -5,9 +5,9 @@
 #ifndef ENGINE_PROGRAMS_HPP
 #define ENGINE_PROGRAMS_HPP
 
-#include <glcxx/src/program.hpp>
-#include <glcxx/src/uniform_input.hpp>
-#include <glcxx/src/texture_input.hpp>
+#include <glcxx/program.hpp>
+#include <glcxx/uniform_input.hpp>
+#include <glcxx/texture_input.hpp>
 
 namespace programs
 {

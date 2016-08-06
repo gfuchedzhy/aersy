@@ -5,10 +5,10 @@
 #ifndef ENGINE_SKY_HPP
 #define ENGINE_SKY_HPP
 
+#include <vector>
+#include <glcxx/vao.hpp>
 #include "Model.hpp"
 #include "Billboard.hpp"
-#include <glcxx/src/vao.hpp>
-#include <vector>
 
 /// @brief sky consists of 5 textured rects and some clouds todo
 class CSky : public IRenderableModel

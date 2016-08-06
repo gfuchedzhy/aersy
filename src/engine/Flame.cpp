@@ -3,6 +3,7 @@
  */
 
 #include "Flame.hpp"
+#include <glcxx/capabilities.hpp>
 #include "Context.hpp"
 
 CJetFlame::CJetFlame(float radius, float rate, float particleSpeed)

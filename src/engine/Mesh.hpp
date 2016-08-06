@@ -5,10 +5,10 @@
 #ifndef ENGINE_MESH_HPP
 #define ENGINE_MESH_HPP
 
+#include <glcxx/vao.hpp>
+#include <memory>
 #include "Renderable.hpp"
 #include "Material.hpp"
-#include <glcxx/src/vao.hpp>
-#include <memory>
 
 class aiMesh;
 

@@ -3,6 +3,8 @@
  */
 
 #include "Sky.hpp"
+
+#include <glcxx/capabilities.hpp>
 #include "Sphere.hpp"
 #include "Context.hpp"
 #include "Utils.hpp"

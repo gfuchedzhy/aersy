@@ -5,8 +5,8 @@
 #ifndef ENGINE_UTILS_HPP
 #define ENGINE_UTILS_HPP
 
-#include <glcxx/src/utils.hpp>
 #include <random>
+#include <glcxx/utils.hpp>
 
 /// @brief random generator
 extern std::mt19937 random_gen;

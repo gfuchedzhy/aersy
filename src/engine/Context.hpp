@@ -5,10 +5,9 @@
 #ifndef ENGINE_CONTEXT_HPP
 #define ENGINE_CONTEXT_HPP
 
-#include "Programs.hpp"
-#include <glcxx/src/renderer.hpp>
-#include <glcxx/src/capabilities.hpp>
+#include <glcxx/renderer.hpp>
 #include <SFML/Window.hpp>
+#include "Programs.hpp"
 
 /// @brief drawing context
 class CContext

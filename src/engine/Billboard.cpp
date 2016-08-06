@@ -3,6 +3,8 @@
  */
 
 #include "Billboard.hpp"
+
+#include <glcxx/capabilities.hpp>
 #include "Context.hpp"
 #include "Utils.hpp"
 

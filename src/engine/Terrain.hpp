@@ -5,9 +5,9 @@
 #ifndef ENGINE_TERRAIN_HPP
 #define ENGINE_TERRAIN_HPP
 
+#include <glcxx/vao.hpp>
 #include "Model.hpp"
 #include "Texture.hpp"
-#include <glcxx/src/vao.hpp>
 
 /// @brief dummy terrain is bunch of rectangles covering area under skydome
 class CTerrain : public IRenderableModel

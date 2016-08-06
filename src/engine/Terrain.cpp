@@ -4,8 +4,9 @@
 
 #include "Terrain.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
 #include <cmath>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glcxx/capabilities.hpp>
 #include "Utils.hpp"
 #include "Context.hpp"
 

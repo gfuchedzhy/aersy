@@ -5,7 +5,7 @@
 #ifndef ENGINE_FLAME_HPP
 #define ENGINE_FLAME_HPP
 
-#include <glcxx/src/vao.hpp>
+#include <glcxx/vao.hpp>
 #include "Renderable.hpp"
 #include "Billboard.hpp"
 #include "Particle.hpp"

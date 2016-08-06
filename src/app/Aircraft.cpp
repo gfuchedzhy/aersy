@@ -3,13 +3,14 @@
  */
 
 #include "Aircraft.hpp"
-#include "Context.hpp"
 
 #include <algorithm>
-
+#include <glcxx/capabilities.hpp>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+
+#include "Context.hpp"
 
 CAircraft::CAircraft()
    : mFlames{{{0.8, 300, 100}, {0.8, 300, 100}}}

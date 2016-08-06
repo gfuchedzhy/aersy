@@ -5,9 +5,9 @@
 #ifndef ENGINE_TEXTURE_HPP
 #define ENGINE_TEXTURE_HPP
 
-#include <glcxx/src/texture.hpp>
 #include <string>
 #include <memory>
+#include <glcxx/texture.hpp>
 
 /// @brief texture object
 class CTexture : public glcxx::texture

@@ -3,8 +3,9 @@
  */
 
 #include "App.hpp"
+
+#include <glcxx/gl.hpp>
 #include "Log.hpp"
-#include <glcxx/src/gl.hpp>
 
 /// @brief entry point
 int main()

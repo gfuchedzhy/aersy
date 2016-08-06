@@ -3,7 +3,7 @@
  */
 
 #include "Rocket.hpp"
-#include "glcxx/src/capabilities.hpp"
+#include <glcxx/capabilities.hpp>
 
 void CRocket::launch(const glm::vec3& pos, const glm::vec3& dir, float initialSpeed)
 {

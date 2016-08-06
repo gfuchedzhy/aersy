@@ -21,7 +21,7 @@ class glsl(Task.Task):
         return "Processing"
     def run(self):
         with open(self.outputs[0].abspath(), 'w') as out, open(self.inputs[0].abspath()) as inp:
-           print('#include <glcxx/src/utils.hpp>', file=out)
+           print('#include <glcxx/utils.hpp>', file=out)
            print('namespace glcxx {', file=out)
            print('template<typename TName>', file=out)
            print('const char* get_program_src();\n', file=out)
@@ -67,11 +67,11 @@ def build(bld):
     bld(features = 'cxx cxxstlib',
         source   = bld.path.ant_glob(['src/engine/*.cpp', 'src/engine/*.glsl']),
         target   = 'engine',
-        includes = ['src/engine', '.'],
+        includes = ['src/engine', '.', 'glcxx/include'],
         use      = ['sfml', 'cxxflags', 'opengl'])
 
     bld(features = 'cxx cxxprogram strip',
         source   = bld.path.ant_glob('src/app/*.cpp'),
         target   = appname + '.out',
-        includes = ['src/engine', '.'],
+        includes = ['src/engine', '.', 'glcxx/include'],
         use      = ['engine', 'cxxflags', 'sfml', 'assimp', 'glcxx'])

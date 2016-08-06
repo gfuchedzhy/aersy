@@ -3,6 +3,8 @@
  */
 
 #include "App.hpp"
+
+#include <glcxx/capabilities.hpp>
 #include "Texture.hpp"
 #include "Log.hpp"
 

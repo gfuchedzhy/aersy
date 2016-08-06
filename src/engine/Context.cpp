@@ -3,6 +3,7 @@
  */
 
 #include "Context.hpp"
+#include <glcxx/capabilities.hpp>
 
 namespace
 {
