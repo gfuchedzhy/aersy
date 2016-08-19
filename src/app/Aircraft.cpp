@@ -38,11 +38,11 @@ CAircraft::CAircraft()
       mMeshes.emplace_back(*mesh, materials[mesh->mMaterialIndex]);
    }
 
-   auto flameTex = make_texture("res/flame-sprite.dds");
+   auto flameTex = make_texture("res/flame-sprite.png");
    for(auto& f : mFlames)
       f.texture(flameTex);
 
-   auto explosionTex = make_texture("res/explosion-sprite.dds");
+   auto explosionTex = make_texture("res/explosion-sprite.jpg");
    for(auto& r : mRockets)
    {
       r.flameTexture(flameTex);

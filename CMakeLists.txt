@@ -10,7 +10,7 @@ include_directories(${GLCXX_INCLUDE_DIRS})
 file(GLOB ENGINE_SRC src/engine/*.[hc]pp)
 add_library(engine ${ENGINE_SRC})
 
-find_package(SFML COMPONENTS window system)
+find_package(SFML COMPONENTS window system graphics)
 include_directories(src/engine ${SFML_INCLUDE_DIR})
 
 include_directories(src/engine)
