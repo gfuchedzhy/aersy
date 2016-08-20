@@ -16,7 +16,7 @@ CAircraft::CAircraft()
    : mFlames{{{0.8, 300, 100}, {0.8, 300, 100}}}
 {
    Assimp::Importer importer;
-   const aiScene* scene = importer.ReadFile("res/Su-35_SuperFlanker/Su-35_SuperFlanker.obj",
+   const aiScene* scene = importer.ReadFile("aersy-res/Su-35_SuperFlanker/Su-35_SuperFlanker.obj",
                                             aiProcess_CalcTangentSpace       |
                                             aiProcess_JoinIdenticalVertices  |
                                             aiProcess_SortByPType);
