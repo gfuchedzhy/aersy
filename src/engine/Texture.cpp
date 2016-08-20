@@ -11,7 +11,7 @@ CTexture::CTexture(const std::string& filename)
 {
    Log::msg("loading texture from ", filename);
    sf::Image img;
-   if (!img.loadFromFile(filename))
+   if (!img.loadFromFile(std::string("aersy-res/") + filename))
       throw std::runtime_error{"failed to load texture"};
    auto size = img.getSize();
    bind();

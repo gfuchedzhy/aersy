@@ -28,7 +28,7 @@ CAircraft::CAircraft()
    {
       const aiMaterial* material = scene->mMaterials[m];
       assert(material);
-      materials.push_back(std::make_shared<SMaterial>(*material, "res/Su-35_SuperFlanker/"));
+      materials.push_back(std::make_shared<SMaterial>(*material, "Su-35_SuperFlanker/"));
    }
 
    for (size_t m = 0; m < scene->mNumMeshes; ++m)
@@ -38,11 +38,11 @@ CAircraft::CAircraft()
       mMeshes.emplace_back(*mesh, materials[mesh->mMaterialIndex]);
    }
 
-   auto flameTex = make_texture("res/flame-sprite.png");
+   auto flameTex = make_texture("flame-sprite.png");
    for(auto& f : mFlames)
       f.texture(flameTex);
 
-   auto explosionTex = make_texture("res/explosion-sprite.jpg");
+   auto explosionTex = make_texture("explosion-sprite.jpg");
    for(auto& r : mRockets)
    {
       r.flameTexture(flameTex);

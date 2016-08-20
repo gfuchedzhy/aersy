@@ -16,7 +16,7 @@ CSky::CSky(glcxx::texture_ptr tex, float horizonDistance)
 
    std::array<glcxx::texture_ptr, 5> cloudTextures;
    for (int i = 0; i < cloudTextures.size(); ++i)
-      cloudTextures[i] = make_texture(std::string("res/cloud") + std::to_string(i+1) + ".png");
+      cloudTextures[i] = make_texture(std::string("cloud") + std::to_string(i+1) + ".png");
 
    std::uniform_real_distribution<float> sizeDistr(2000, 7000);
    std::uniform_real_distribution<float> angleDistr(0, 2*M_PI);

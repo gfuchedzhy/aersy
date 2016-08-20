@@ -17,8 +17,8 @@ namespace
 
 CApp::CApp()
    : CEngine(1280, 960)
-   , mSky(make_texture("res/sky.png"), horizonDistance)
-   , mTerrain(make_texture("res/ground.jpg"))
+   , mSky(make_texture("sky.png"), horizonDistance)
+   , mTerrain(make_texture("ground.jpg"))
 {
    mTerrain.scale({0.3*horizonDistance, 0.3*horizonDistance, 1.f});
    mTerrain.radius(horizonDistance);
@@ -31,7 +31,7 @@ CApp::CApp()
    mTargetCameraPitch = 15;
    mCamera.pitch(mTargetCameraPitch);
 
-   auto starTexture = make_texture("res/star-sprite.png");
+   auto starTexture = make_texture("star-sprite.png");
    for (auto& s: mStars)
    {
       s.atlasSize({4, 4});
