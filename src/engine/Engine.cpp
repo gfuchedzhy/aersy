@@ -53,7 +53,7 @@ void CEngine::run()
       update(timeDelta);
 
       // clear the buffers
-      glcxx_gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       // draw whole scene
       draw();
