@@ -26,7 +26,7 @@ struct SMaterial
       float mShininess = 1.f;
 
       /// @brief diffuse texture
-      glcxx::texture_ptr mDiffuseMap;
+      tTexturePtr mDiffuseMap;
 
       /// @brief normal map texture
       glcxx::texture_ptr mNormalMap;

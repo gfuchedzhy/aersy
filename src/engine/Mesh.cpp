@@ -4,6 +4,7 @@
 
 #include "Mesh.hpp"
 #include "Context.hpp"
+#include <glcxx/capabilities.hpp>
 #include <assimp/scene.h>
 
 CMesh::CMesh(const aiMesh& mesh, std::shared_ptr<SMaterial> material)
@@ -45,6 +46,7 @@ CMesh::CMesh(const aiMesh& mesh, std::shared_ptr<SMaterial> material)
 
 void CMesh::draw(const CContext& context) const
 {
+   using namespace glcxx;
    assert(mMaterial->mDiffuseMap);
 
    if (mMaterial->mNormalMap)
@@ -56,6 +58,10 @@ void CMesh::draw(const CContext& context) const
       p.set<cts("uSpecular")>(mMaterial->mSpecular);
       p.set<cts("uShininess")>(mMaterial->mShininess);
       p.set<cts("uNormalMap")>(mMaterial->mNormalMap);
+
+      enable_blending_guard lock(enable_blending_guard::default_src_factor,
+                                 enable_blending_guard::default_dst_factor,
+                                 mMaterial->mDiffuseMap->hasAlpha());
       p.draw_elements(mVAO);
    }
    else
@@ -66,6 +72,10 @@ void CMesh::draw(const CContext& context) const
       p.set<cts("uDiffuse")>(mMaterial->mDiffuse);
       p.set<cts("uSpecular")>(mMaterial->mSpecular);
       p.set<cts("uShininess")>(mMaterial->mShininess);
+
+      enable_blending_guard lock(enable_blending_guard::default_src_factor,
+                                 enable_blending_guard::default_dst_factor,
+                                 mMaterial->mDiffuseMap->hasAlpha());
       p.draw_elements(mVAO);
    }
 }

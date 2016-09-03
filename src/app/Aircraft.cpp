@@ -107,11 +107,8 @@ void CAircraft::draw(const CContext& context) const
    auto& p2 = context.getProgram<cts("shaded_tex_nmap")>();
    p2.set<cts("uModel")>(model());
 
-   {
-      glcxx::enable_blending_guard lock;
-      for (const auto& m: mMeshes)
-         m.draw(context);
-   }
+   for (const auto& m: mMeshes)
+      m.draw(context);
 
    for (const auto& f : mFlames)
       f.draw(context);
