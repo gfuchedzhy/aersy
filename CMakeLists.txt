@@ -21,7 +21,10 @@ find_package_handle_standard_args(GLCXX DEFAULT_MSG GLCXX_INCLUDE_DIRS GLCXX_LIB
 file(GLOB ENGINE_SRC src/engine/*.[hc]pp)
 add_library(engine ${ENGINE_SRC})
 
-find_package(SFML COMPONENTS window system graphics)
+find_package(ImageMagick REQUIRED COMPONENTS Magick++)
+include_directories(${ImageMagick_INCLUDE_DIRS})
+
+find_package(SFML COMPONENTS window system)
 include_directories(src/engine ${SFML_INCLUDE_DIR} ${GLCXX_INCLUDE_DIRS})
 add_definitions(-DAPPNAME="${PROJECT_NAME}")
 file(GLOB APP_SRC src/app/*.[hc]pp)
@@ -31,4 +34,10 @@ file(GLOB SHADER_SRC src/engine/*.glsl)
 include(glcxx_shaders)
 glcxx_compile_shaders(shaders ${SHADER_SRC})
 
-target_link_libraries(${PROJECT_NAME} engine shaders ${GLCXX_LIBRARIES} ${SFML_LIBRARIES} GL assimp)
+target_link_libraries(${PROJECT_NAME}
+  engine
+  shaders
+  GL assimp
+  ${GLCXX_LIBRARIES}
+  ${SFML_LIBRARIES}
+  ${ImageMagick_LIBRARIES})
