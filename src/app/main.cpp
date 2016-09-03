@@ -3,15 +3,12 @@
  */
 
 #include "App.hpp"
-
-#include <glcxx/gl.hpp>
 #include "Log.hpp"
 
 /// @brief entry point
 int main()
 {
-   // catch and rethrow to properly free all gl resources even in case of
-   // exception
+   // catch to properly free all gl resources
    try
    {
       CApp app;
