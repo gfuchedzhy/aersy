@@ -3,6 +3,7 @@
  */
 
 #include "GLWindow.hpp"
+#include <glcxx/gl.hpp>
 
 CGLWindow::CGLWindow(const char* title, int x, int y, int w, int h, Uint32 flags)
    : mSDL(SDL_INIT_VIDEO)
@@ -23,6 +24,10 @@ CGLWindow::CGLWindow(const char* title, int x, int y, int w, int h, Uint32 flags
       throw std::runtime_error(SDL_GetError());
 
    SDL_GL_MakeCurrent(mWindow.get(), mContext.get());
+
+   if (!glcxx_load_gl(SDL_GL_GetProcAddress))
+      throw std::runtime_error("gl failed to load");
+
    if (SDL_GL_SetSwapInterval(-1))
       SDL_GL_SetSwapInterval(1);
 }

@@ -37,7 +37,7 @@ glcxx_compile_shaders(shaders ${SHADER_SRC})
 target_link_libraries(${PROJECT_NAME}
   engine
   shaders
-  GL assimp
+  assimp
   ${GLCXX_LIBRARIES}
   ${ImageMagick_LIBRARIES}
   ${SDL2_LIBRARIES})
