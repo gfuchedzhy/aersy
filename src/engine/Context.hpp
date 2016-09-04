@@ -6,18 +6,11 @@
 #define ENGINE_CONTEXT_HPP
 
 #include <glcxx/renderer.hpp>
-#include <SFML/Window.hpp>
 #include "Programs.hpp"
 
 /// @brief drawing context
 class CContext
 {
-      /// @brief context settings
-      sf::ContextSettings mContextSettings{24, 0, 0, 3, 3, sf::ContextSettings::Core};
-
-      /// @brief underlying sfml context
-      sf::Context mInternalContext{mContextSettings, 1, 1};
-
 #define named_program(name) std::pair<cts(#name), programs::name>
       /// @brief renderer holding programs
       using tRenderer = glcxx::renderer<named_program(regular_col),
@@ -41,12 +34,6 @@ class CContext
       auto& getProgram() const
       {
          return mRenderer.get_program<TName>();
-      }
-
-      /// @brief return context settings
-      const auto& contextSettings() const
-      {
-         return mContextSettings;
       }
 
       /// additional flags to enable/disable various features

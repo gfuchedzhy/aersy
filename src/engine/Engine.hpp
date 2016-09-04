@@ -5,9 +5,10 @@
 #ifndef ENGINE_ENGINE_HPP
 #define ENGINE_ENGINE_HPP
 
-#include <SFML/Window.hpp>
 #include <chrono>
+#include "GLWindow.hpp"
 #include "Context.hpp"
+#include "Utils.hpp"
 
 /// @brief engine class
 class CEngine
@@ -23,7 +24,7 @@ class CEngine
       virtual void update(float timeDelta) = 0;
 
       /// @brief key presses handler
-      virtual void onKeyPressed(const sf::Event::KeyEvent& keyEvent) = 0;
+      virtual void onKeyPressed(SDL_Keycode keyCode) = 0;
 
       /// @brief draw
       virtual void draw() const = 0;
@@ -32,11 +33,11 @@ class CEngine
       virtual void run();
 
    protected:
+      /// @brief window object
+      CGLWindow mWindow;
+
       /// @brief drawing context
       CContext mContext;
-
-      /// @brief window object
-      sf::Window mWindow;
 
       /// @brief aspect ratio
       float mAspect;

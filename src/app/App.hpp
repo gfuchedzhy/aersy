@@ -55,7 +55,7 @@ class CApp : public CEngine
       void update(float timeDelta) override;
 
       /// @brief key presses handler
-      void onKeyPressed(const sf::Event::KeyEvent& keyEvent) override;
+      void onKeyPressed(SDL_Keycode keyCode) override;
 
       /// @brief draw
       void draw() const override;

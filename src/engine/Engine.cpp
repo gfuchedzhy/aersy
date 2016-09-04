@@ -6,11 +6,10 @@
 #include "Log.hpp"
 
 CEngine::CEngine(const size_t width, const size_t height)
-   : mWindow(sf::VideoMode(width, height), APPNAME, sf::Style::Titlebar | sf::Style::Close, mContext.contextSettings())
+   : mWindow(APPNAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, 0)
    , mAspect(width/float(height))
    , mTime(std::chrono::steady_clock::now())
 {
-   mWindow.setVerticalSyncEnabled(true);
 }
 
 void CEngine::run()
@@ -18,16 +17,16 @@ void CEngine::run()
    while (true)
    {
       // handle events
-      sf::Event event;
-      while (mWindow.pollEvent(event))
+      SDL_Event event;
+      while (SDL_PollEvent(&event))
       {
          switch(event.type)
          {
-            case sf::Event::Closed:
-               Log::msg("close event occured");
+            case SDL_QUIT:
+               Log::msg("quit event occured");
                return;
-            case sf::Event::KeyPressed:
-               onKeyPressed(event.key);
+            case SDL_KEYDOWN:
+               onKeyPressed(event.key.keysym.sym);
                break;
             default:
                break;
@@ -58,7 +57,7 @@ void CEngine::run()
       // draw whole scene
       draw();
 
-      // end the current frame (internally swaps the front and back buffers)
-      mWindow.display();
+      // end the current frame, swap the front and back buffers
+      mWindow.swap();
    }
 }

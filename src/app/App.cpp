@@ -39,6 +39,7 @@ CApp::CApp()
       s.size({15, 15});
       s.pos({1e3*distr2(random_gen), 1e3*distr2(random_gen), 1.5e3 * distr(random_gen)});
    }
+   mWindow.show();
 }
 
 /// @brief return damped value
@@ -51,12 +52,12 @@ inline float damp(float value, float timeDelta, float targetValue, float dampCoe
 template<typename Get, typename Set>
 inline bool animate(Get get, Set set,
                     float timeDelta, float speed,
-                    sf::Keyboard::Key minKey, sf::Keyboard::Key maxKey,
+                    bool isMinKeyPressed, bool isMaxKeyPressed,
                     float minVal, float maxVal)
 {
-   if (sf::Keyboard::isKeyPressed(minKey))
+   if (isMinKeyPressed)
       set(std::max(minVal, get() - timeDelta*speed));
-   else if (sf::Keyboard::isKeyPressed(maxKey))
+   else if (isMaxKeyPressed)
       set(std::min(maxVal, get() + timeDelta*speed));
    else
       return false;
@@ -85,15 +86,17 @@ void CApp::update(float timeDelta)
       s.update(timeDelta);
    }
 
+   const auto kbdState = SDL_GetKeyboardState(nullptr);
+
    constexpr auto inf = std::numeric_limits<float>::infinity();
    if (mIsCameraControl)
    {
       animate([this]{return mTargetCameraPitch;},
               [this](float val){mTargetCameraPitch = val;},
-              timeDelta, 30.f, sf::Keyboard::Down, sf::Keyboard::Up, -inf, inf);
+              timeDelta, 30.f, kbdState[SDL_SCANCODE_DOWN], kbdState[SDL_SCANCODE_UP], -inf, inf);
       animate([this]{return mTargetCameraEyeDistance;},
               [this](float val){mTargetCameraEyeDistance = val;},
-              timeDelta, 30.f, sf::Keyboard::Add, sf::Keyboard::Subtract, 10.f, 500.f);
+              timeDelta, 30.f, kbdState[SDL_SCANCODE_KP_PLUS], kbdState[SDL_SCANCODE_KP_MINUS], 10.f, 500.f);
    }
    mCamera.pitch(damp(mCamera.pitch(), timeDelta, mTargetCameraPitch, 1.f));
    mCamera.eyeDistance(damp(mCamera.eyeDistance(), timeDelta, mTargetCameraEyeDistance, 1.f));
@@ -102,13 +105,13 @@ void CApp::update(float timeDelta)
    {
       animate([this]{return mRelativeCameraOrientation;},
               [this](float val){mRelativeCameraOrientation = val;},
-              timeDelta, 60.f, sf::Keyboard::Left, sf::Keyboard::Right, -inf, inf);
+              timeDelta, 60.f, kbdState[SDL_SCANCODE_LEFT], kbdState[SDL_SCANCODE_RIGHT], -inf, inf);
    }
    mCamera.orientation(damp(mCamera.orientation(), timeDelta, mRelativeCameraOrientation + mAircraft.yaw(), 1.f));
 
    if (mIsCameraControl || !animate([this]{return mAircraft.roll();},
                                     [this](float val){mAircraft.roll(val);},
-                                    timeDelta, 30.f, sf::Keyboard::Left, sf::Keyboard::Right, -60.f, 60.f))
+                                    timeDelta, 30.f, kbdState[SDL_SCANCODE_LEFT], kbdState[SDL_SCANCODE_RIGHT], -60.f, 60.f))
    {
       mAircraft.roll(damp(mAircraft.roll(), timeDelta, 0));
    }
@@ -119,13 +122,13 @@ void CApp::update(float timeDelta)
    {
       if (!animate([this]{return mAircraft.speed();},
                    [this](float val){mAircraft.speed(val);},
-                   timeDelta, 20.f, sf::Keyboard::Unknown, sf::Keyboard::Space, 80.f, 180.f))
+                   timeDelta, 20.f, false, kbdState[SDL_SCANCODE_SPACE], 80.f, 180.f))
          mAircraft.speed(damp(mAircraft.speed(), timeDelta, 80));
    }
 
    if (mIsCameraControl || !animate([this]{return mAircraft.pitch();},
                                     [this](float val){ mAircraft.pitch(val);},
-                                    timeDelta, 20.f, sf::Keyboard::Up, sf::Keyboard::Down, -inf, inf))
+                                    timeDelta, 20.f, kbdState[SDL_SCANCODE_UP], kbdState[SDL_SCANCODE_DOWN], -inf, inf))
    {
       mAircraft.pitch(damp(mAircraft.pitch() - 360*int(round(mAircraft.pitch()/360)), timeDelta, 0, 1));
    }
@@ -165,30 +168,30 @@ void CApp::update(float timeDelta)
       p.set<cts("uPerspectiveScale")>(mCamera.perspectiveScale()); }
 }
 
-void CApp::onKeyPressed(const sf::Event::KeyEvent& keyEvent)
+void CApp::onKeyPressed(SDL_Keycode keyCode)
 {
-   switch (keyEvent.code)
+   switch (keyCode)
    {
-      case sf::Keyboard::Num1:
+      case SDLK_1:
          mCameraFollowsAircraft = !mCameraFollowsAircraft;
          Log::msg("camera aircraft following turned ", Log::SOnOff(mCameraFollowsAircraft));
          break;
-      case sf::Keyboard::Num2:
+      case SDLK_2:
          mContext.mDrawHealthBars = !mContext.mDrawHealthBars;
          Log::msg("health bars turned ", Log::SOnOff(mContext.mDrawHealthBars));
          break;
-      case sf::Keyboard::Num3:
+      case SDLK_3:
          mContext.mDrawNormals = !mContext.mDrawNormals;
          Log::msg("normals turned ", Log::SOnOff(mContext.mDrawNormals));
          break;
-      case sf::Keyboard::Tab:
+      case SDLK_TAB:
          mIsCameraControl = !mIsCameraControl;
          Log::msg("camera control turned ", Log::SOnOff(mIsCameraControl));
          break;
-      case sf::Keyboard::Return:
+      case SDLK_RETURN:
          Log::msg(mAircraft.launchRocket() ? "rocket launched" : "out of rockets");
          break;
-      case sf::Keyboard::D:
+      case SDLK_d:
          mAircraft.randomDamage();
          Log::msg("apply random damage to aircraft");
          break;

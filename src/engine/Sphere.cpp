@@ -48,15 +48,15 @@ void generateHalfSphere(size_t N,
             tangents->emplace_back(-sinPhi, cosPhi, 0);
          texCoords.emplace_back(phi/(2*M_PI), 2*theta/M_PI);
 
-         indices.push_back(stripStart + j - 1);
          indices.push_back(stripStart + j);
+         indices.push_back(stripStart + j - 1);
          indices.push_back(stripStart - (prevN+1) + k-1);
 
          // average of k-1 and k angle <= average of j and j+1 angle
          if ((k-0.5f)*n <= (j+0.5f)*prevN)
          {
-            indices.push_back(stripStart - (prevN+1) + k-1);
             indices.push_back(stripStart + j);
+            indices.push_back(stripStart - (prevN+1) + k-1);
             indices.push_back(stripStart - (prevN+1) + k);
             k++;
          }

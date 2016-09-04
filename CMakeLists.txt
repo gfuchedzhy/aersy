@@ -22,10 +22,10 @@ file(GLOB ENGINE_SRC src/engine/*.[hc]pp)
 add_library(engine ${ENGINE_SRC})
 
 find_package(ImageMagick REQUIRED COMPONENTS Magick++)
-include_directories(${ImageMagick_INCLUDE_DIRS})
+find_package(SDL2 REQUIRED)
+string(STRIP ${SDL2_LIBRARIES} SDL2_LIBRARIES)
 
-find_package(SFML COMPONENTS window system)
-include_directories(src/engine ${SFML_INCLUDE_DIR} ${GLCXX_INCLUDE_DIRS})
+include_directories(src/engine ${GLCXX_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS} ${ImageMagick_INCLUDE_DIRS})
 add_definitions(-DAPPNAME="${PROJECT_NAME}")
 file(GLOB APP_SRC src/app/*.[hc]pp)
 add_executable(${PROJECT_NAME} ${APP_SRC})
@@ -39,5 +39,5 @@ target_link_libraries(${PROJECT_NAME}
   shaders
   GL assimp
   ${GLCXX_LIBRARIES}
-  ${SFML_LIBRARIES}
-  ${ImageMagick_LIBRARIES})
+  ${ImageMagick_LIBRARIES}
+  ${SDL2_LIBRARIES})
