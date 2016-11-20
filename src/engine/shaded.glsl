@@ -18,7 +18,7 @@ DECL_VERT_FRAG(vec2, UV);
 
 void main()
 {
-   vec4 pos = uModel*aPos;
+   vec4 pos = uModel*vec4(aPos, 1);
    gl_Position = uViewProj*pos;
 
 #ifdef NMAP

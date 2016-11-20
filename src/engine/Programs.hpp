@@ -14,7 +14,7 @@ namespace programs
    using namespace glcxx;
 
    using regular = program<
-      vao_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
+      vao_input<cts("aPos"), attrib<glm::tvec3, float, float>>,
       uniform_input<cts("uModel"), uniform<glm::tmat4x4>>,
       uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>>;
 
@@ -26,7 +26,7 @@ namespace programs
       texture_input<cts("uTexture")>>;
 
    using shaded = program<
-      vao_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
+      vao_input<cts("aPos"), attrib<glm::tvec3, float, float>>,
       vao_input<cts("aNorm"), attrib<glm::tvec3>>,
       uniform_input<cts("uModel"), uniform<glm::tmat4x4>>,
       uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
@@ -50,7 +50,7 @@ namespace programs
       texture_input<cts("uNormalMap"), 1>>;
 
    using billboard = program<
-      vao_input<cts("aPos"), attrib<glm::tvec3, float, float, 1>>,
+      vao_input<cts("aPos"), attrib<glm::tvec3, float, float>>,
       uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
       uniform_input<cts("uPos"), uniform<glm::tvec3>>,
       uniform_input<cts("uSize"), uniform<glm::tvec2>>,
