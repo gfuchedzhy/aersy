@@ -6,7 +6,7 @@
 #define ENGINE_PROGRAMS_HPP
 
 #include <glcxx/program.hpp>
-#include <glcxx/uniform_input.hpp>
+#include <glcxx/uniform.hpp>
 #include <glcxx/texture_input.hpp>
 
 namespace programs
@@ -14,79 +14,85 @@ namespace programs
    using namespace glcxx;
 
    using regular = program<
-      vao_input<cts("aPos"), attrib<glm::tvec3, float, float>>,
-      uniform_input<cts("uModel"), uniform<glm::tmat4x4>>,
-      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>>;
+      vao_input<cts("aPos"), glm::vec3>,
+      uniform<cts("uModel"), glm::mat4>,
+      uniform<cts("uViewProj"), glm::mat4>>;
 
-   using regular_col = derive_program<regular, uniform_input<cts("uColor"), uniform<glm::tvec3>, tag::fragment>>;
+   using regular_col = derive_program<
+      regular,
+      uniform<cts("uColor"), glm::vec3, tag::fragment>>;
 
    using regular_tex = derive_program<
       regular,
-      vao_input<cts("aUV"), attrib<glm::tvec2>>,
+      vao_input<cts("aUV"), glm::vec2>,
       texture_input<cts("uTexture")>>;
 
    using shaded = program<
-      vao_input<cts("aPos"), attrib<glm::tvec3, float, float>>,
-      vao_input<cts("aNorm"), attrib<glm::tvec3>>,
-      uniform_input<cts("uModel"), uniform<glm::tmat4x4>>,
-      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
-      uniform_input<cts("uAmbient"), uniform<glm::tvec3>, tag::fragment>,
-      uniform_input<cts("uDiffuse"), uniform<glm::tvec3>, tag::fragment>,
-      uniform_input<cts("uSpecular"), uniform<glm::tvec3>, tag::fragment>,
-      uniform_input<cts("uShininess"), uniform<glm::tvec1>, tag::fragment>,
-      uniform_input<cts("uSunDir"), uniform<glm::tvec3>, tag::vertfrag>,
-      uniform_input<cts("uEye"), uniform<glm::tvec3>, tag::vertex>>;
+      vao_input<cts("aPos"), glm::vec3>,
+      vao_input<cts("aNorm"), glm::vec3>,
+      uniform<cts("uModel"), glm::mat4>,
+      uniform<cts("uViewProj"), glm::mat4>,
+      uniform<cts("uAmbient"), glm::vec3, tag::fragment>,
+      uniform<cts("uDiffuse"), glm::vec3, tag::fragment>,
+      uniform<cts("uSpecular"), glm::vec3, tag::fragment>,
+      uniform<cts("uShininess"), float, tag::fragment>,
+      uniform<cts("uSunDir"), glm::vec3, tag::vertfrag>,
+      uniform<cts("uEye"), glm::vec3, tag::vertex>>;
 
-   using shaded_col = derive_program<shaded, uniform_input<cts("uColor"), uniform<glm::tvec3>, tag::fragment>>;
+   using shaded_col = derive_program<
+      shaded,
+      uniform<cts("uColor"), glm::vec3, tag::fragment>>;
 
    using shaded_tex = derive_program<
       shaded,
-      vao_input<cts("aUV"), attrib<glm::tvec2>>,
+      vao_input<cts("aUV"), glm::vec2>,
       texture_input<cts("uTexture")>>;
 
    using shaded_tex_nmap = derive_program<
       shaded_tex,
-      vao_input<cts("aTan"), attrib<glm::tvec3>>,
+      vao_input<cts("aTan"), glm::vec3>,
       texture_input<cts("uNormalMap"), 1>>;
 
    using billboard = program<
-      vao_input<cts("aPos"), attrib<glm::tvec3, float, float>>,
-      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
-      uniform_input<cts("uPos"), uniform<glm::tvec3>>,
-      uniform_input<cts("uSize"), uniform<glm::tvec2>>,
-      uniform_input<cts("uEyePos"), uniform<glm::tvec3>>,
-      uniform_input<cts("uUp"), uniform<glm::tvec3>>>;
+      vao_input<cts("aPos"), glm::vec3>,
+      uniform<cts("uViewProj"), glm::mat4>,
+      uniform<cts("uPos"), glm::vec3>,
+      uniform<cts("uSize"), glm::vec2>,
+      uniform<cts("uEyePos"), glm::vec3>,
+      uniform<cts("uUp"), glm::vec3>>;
 
    using billboard_tex = derive_program<
       billboard,
-      vao_input<cts("aUV"), attrib<glm::tvec2>>,
+      vao_input<cts("aUV"), glm::vec2>,
       texture_input<cts("uTexture")>>;
 
    using billboard_tex_sprite = derive_program<
       billboard_tex,
-      uniform_input<cts("uAtlasSize"), uniform<glm::tvec2, int>>,
-      uniform_input<cts("uAtlasPos"), uniform<glm::tvec2, int>>>;
+      uniform<cts("uAtlasSize"), glm::vec2, tag::vertex, glm::ivec2>,
+      uniform<cts("uAtlasPos"),  glm::vec2, tag::vertex, glm::ivec2>>;
 
    using billboard_hb = derive_program<
       billboard,
-      uniform_input<cts("uValue"), uniform<glm::tvec1>, tag::fragment>>;
+      uniform<cts("uValue"), float, tag::fragment>>;
 
    using particlesys = program<
-      vao_input<cts("aPos"), attrib<glm::tvec3>>,
-      uniform_input<cts("uViewProj"), uniform<glm::tmat4x4>>,
-      uniform_input<cts("uSize"), uniform<glm::tvec2>, tag::geometry>,
-      uniform_input<cts("uPerspectiveScale"), uniform<glm::tvec2>, tag::geometry>>;
+      vao_input<cts("aPos"), glm::vec3>,
+      uniform<cts("uViewProj"), glm::mat4>,
+      uniform<cts("uSize"), glm::vec2, tag::geometry>,
+      uniform<cts("uPerspectiveScale"), glm::vec2, tag::geometry>>;
 
-   using particlesys_tex = derive_program<particlesys, texture_input<cts("uTexture")>>;
+   using particlesys_tex = derive_program<
+      particlesys,
+      texture_input<cts("uTexture")>>;
 
    using particlesys_tex_sprite = derive_program<
       particlesys_tex,
       // aTime.x is age of particle, aTime.y is age of death
-      vao_input<cts("aTime"), attrib<glm::tvec2>>,
+      vao_input<cts("aTime"), glm::vec2>,
       // for optimization purposes aSpeed.xyz is unit speed directon, aSpeed.w is
       // scalar speed value
-      vao_input<cts("aSpeed"), attrib<glm::tvec4>>,
-      uniform_input<cts("uAtlasSize"), uniform<glm::tvec2, int, int>, tag::geometry>>;
+      vao_input<cts("aSpeed"), glm::vec4>,
+      uniform<cts("uAtlasSize"), glm::ivec2, tag::geometry>>;
 
    using particlesys_tex_sprite_flame = particlesys_tex_sprite;
 }

@@ -10,70 +10,60 @@
 
 namespace
 {
-   auto& indexBuffer()
+   auto rectVAO()
    {
-      static const GLubyte data[] = {0, 1, 3, 2};
-      static auto buffer = glcxx::make_index_buffer(data, size(data), GL_TRIANGLE_STRIP);
-      return buffer;
-   }
-
-   auto& uvBuffer()
-   {
-      /// @note flip of Y coordinates, because loaded data are top-row-first, but
-      /// opengl expects bottom-row-first
-      static const typename glm::vec2 data[] = {
-         {0.f, 1.f},
-         {1.f, 1.f},
-         {1.f, 0.f},
-         {0.f, 0.f}
+      struct data_t {
+         glm::vec3 pos;
+         glm::vec2 uv;
       };
-      static auto buffer = glcxx::make_buffer(data, size(data));
-      return buffer;
-   }
-
-   auto& posBuffer()
-   {
-      static const glm::vec3 data[] = {
-         {-0.5f,-0.5f, 0.f},
-         { 0.5f,-0.5f, 0.f},
-         { 0.5f, 0.5f, 0.f},
-         {-0.5f, 0.5f, 0.f}
+      static data_t data[] = {
+         { {-0.5f,-0.5f, 0.f}, {0.f, 1.f} },
+         { { 0.5f,-0.5f, 0.f}, {1.f, 1.f} },
+         { { 0.5f, 0.5f, 0.f}, {1.f, 0.f} },
+         { {-0.5f, 0.5f, 0.f}, {0.f, 0.f} }
       };
-      static auto buffer = glcxx::make_buffer(data, size(data));
-      return buffer;
+
+      static const GLubyte indices[] = {0, 1, 3, 2};
+
+      static auto buf = glcxx::make_buffer(data);
+      glcxx::vao<std::pair<cts("aPos"), glm::vec3>,
+                 std::pair<cts("aUV"), glm::vec2>> vao;
+
+      vao.upload_indices(indices, GL_TRIANGLE_STRIP);
+      vao.set<cts("aPos")>(buf, &data_t::pos);
+      vao.set<cts("aUV")>(buf, &data_t::uv);
+
+      return vao;
    }
 }
 
 void CTexturedBillboard::draw(const CContext& context) const
 {
-   static auto vao = glcxx::make_indexed_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
    auto& p = context.getProgram<cts("billboard_tex")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
    p.set<cts("uTexture")>(mTexture);
-   p.draw_elements(vao);
+   p.draw_elements(rectVAO());
 }
 
 void CAnimatedBillboard::draw(const CContext& context) const
 {
-   static auto vao = glcxx::make_indexed_vao<cts("aPos"), cts("aUV")>(indexBuffer(), posBuffer(), uvBuffer());
    auto& p = context.getProgram<cts("billboard_tex_sprite")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
    p.set<cts("uAtlasSize")>(mAtlasSize);
    p.set<cts("uAtlasPos")>(mAtlasPos);
    p.set<cts("uTexture")>(mTexture);
-   p.draw_elements(vao);
+   p.draw_elements(rectVAO());
 }
 
 void CHealthBar::draw(const CContext& context) const
 {
-   static auto vao = glcxx::make_indexed_vao<cts("aPos")>(indexBuffer(), posBuffer());
    auto& p = context.getProgram<cts("billboard_hb")>();
    p.set<cts("uPos")>(mPos);
    p.set<cts("uSize")>(mSize);
    p.set<cts("uValue")>(mValue);
 
    glcxx::disable_depth_test_guard lock;
-   p.draw_elements(vao);
+   p.draw_elements(rectVAO());
 }

@@ -19,10 +19,10 @@ class CMesh : public IRenderable
       std::shared_ptr<SMaterial> mMaterial;
 
       /// @brief vao
-      glcxx::indexed_vao<std::pair<cts("aPos"),  glm::vec3>,
-                         std::pair<cts("aUV"),   glm::vec2>,
-                         std::pair<cts("aNorm"), glm::vec3>,
-                         std::pair<cts("aTan"),  glm::vec3>> mVAO;
+      glcxx::vao<std::pair<cts("aPos"),  glm::vec3>,
+                 std::pair<cts("aUV"),   glm::vec2>,
+                 std::pair<cts("aNorm"), glm::vec3>,
+                 std::pair<cts("aTan"),  glm::vec3>> mVAO;
 
    public:
       /// @brief constructor

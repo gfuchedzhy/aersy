@@ -41,7 +41,7 @@ CMesh::CMesh(const aiMesh& mesh, std::shared_ptr<SMaterial> material)
       const aiFace& face = mesh.mFaces[f];
       std::copy(face.mIndices, face.mIndices + face.mNumIndices, back_inserter(indices));
    }
-   mVAO.upload<cts("indices")>(indices.data(), indices.size(), GL_TRIANGLES);
+   mVAO.upload_indices(indices.data(), indices.size(), GL_TRIANGLES);
 }
 
 void CMesh::draw(const CContext& context) const

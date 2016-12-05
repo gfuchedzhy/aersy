@@ -39,7 +39,7 @@ CSky::CSky(glcxx::texture_ptr tex, float horizonDistance)
    std::vector<glm::vec2> texCoords;
    std::vector<GLushort> indices;
    generateHalfSphere(7, vertices, texCoords, indices);
-   mVAO.upload<cts("indices")>(indices.data(), indices.size(), GL_TRIANGLES);
+   mVAO.upload_indices(indices.data(), indices.size(), GL_TRIANGLES);
    mVAO.upload<cts("aPos")>(vertices.data(), vertices.size());
    mVAO.upload<cts("aUV")>(texCoords.data(), texCoords.size());
 }

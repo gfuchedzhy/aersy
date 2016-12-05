@@ -27,7 +27,7 @@ CTerrain::CTerrain(glcxx::texture_ptr tex)
       {0.f, 0.f}
    };
    const GLubyte indices[] = {0, 1, 3, 2};
-   mVAO.upload<cts("indices")>(indices, size(indices), GL_TRIANGLE_STRIP);
+   mVAO.upload_indices(indices, size(indices), GL_TRIANGLE_STRIP);
    mVAO.upload<cts("aPos")>(pos, size(pos));
    mVAO.upload<cts("aUV")>(uv, size(uv));
 }

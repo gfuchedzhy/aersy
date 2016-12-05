@@ -20,8 +20,8 @@ class CSky : public IRenderableModel
       glcxx::texture_ptr mTexture;
 
       /// @brief vao
-      glcxx::indexed_vao<std::pair<cts("aPos"), glm::vec3>,
-                         std::pair<cts("aUV"),  glm::vec2>> mVAO;
+      glcxx::vao<std::pair<cts("aPos"), glm::vec3>,
+                 std::pair<cts("aUV"),  glm::vec2>> mVAO;
 
    public:
       /// @brief constructor

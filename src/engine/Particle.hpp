@@ -137,6 +137,7 @@ class TParticleSystem
          const auto pred = [](const TParticle& x) { return !x.mIsAlive; };
          const auto pos = mPoolPos;
          // find first dead particle starting from mPoolPos
+         // @todo should use heap?
          mPoolPos = std::find_if(mPoolPos, end(mParticlePool), pred);
          if (end(mParticlePool) == mPoolPos)
          {

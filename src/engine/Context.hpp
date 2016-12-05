@@ -33,7 +33,7 @@ class CContext
       template<typename TName>
       auto& getProgram() const
       {
-         return mRenderer.get_program<TName>();
+         return mRenderer.program<TName>();
       }
 
       /// additional flags to enable/disable various features
